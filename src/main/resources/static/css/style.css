@@ -1,0 +1,8 @@
+@charset "UTF-8";
+
+
+header {height:100px; background-color:#c0c0c0;}
+.contents {min-height:500px;}
+footer{height:100px; background-color:#c0c0c0;}
+.media-parent-box {gap:20px 35px;}
+.media-box {width:300px;}
