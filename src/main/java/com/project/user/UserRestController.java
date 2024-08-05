@@ -23,6 +23,38 @@ public class UserRestController {
 	@Autowired
 	private UserBO userBO;
 	
+	
+	/**
+	 * 
+	 * @param loginId
+	 * @return
+	 */
+	@RequestMapping("/is-duplicated-id")
+	public Map<String, Object> isDuplicatedId(
+			@RequestParam("loginId") String loginId) {
+		
+		// db 조회
+		UserEntity user = userBO.getUserEntityByLoginId(loginId);
+		
+		// 응답값
+		Map<String, Object> result = new HashMap<>();
+		result.put("code", 200);
+		if (user != null) {
+			result.put("is_duplicated_id", true);
+		} else {
+			result.put("is_duplicated_id", false);
+		}
+		return result;
+	}
+	/**
+	 * 
+	 * @param loginId
+	 * @param password
+	 * @param name
+	 * @param phoneNumber
+	 * @param email
+	 * @return
+	 */
 	@PostMapping("/sign-up")
 	public Map<String,Object> signup(
 			@RequestParam("loginId") String loginId,
@@ -35,7 +67,7 @@ public class UserRestController {
 		// String hashedPassword = EncryptUtils.md5(password);	
 		
 		// db insert
-		UserEntity user = userBO.addUser(loginId, password, name, email,phoneNumber);
+		UserEntity user = userBO.addUser(loginId, password, name, email, phoneNumber);
 		
 		// 응답값
 		Map<String, Object> result = new HashMap<>();
@@ -48,7 +80,13 @@ public class UserRestController {
 		}
 		return result;
 	}
-	
+	/**
+	 * 
+	 * @param loginId
+	 * @param password
+	 * @param request
+	 * @return
+	 */
 	@PostMapping("/sign-in")
 	public Map<String,Object> signIn(
 			@RequestParam("loginId") String loginId,
