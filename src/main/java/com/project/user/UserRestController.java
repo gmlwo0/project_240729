@@ -19,11 +19,9 @@ import jakarta.servlet.http.HttpSession;
 @RestController
 public class UserRestController {
 
-	
 	@Autowired
 	private UserBO userBO;
-	
-	
+
 	/**
 	 * 
 	 * @param loginId
@@ -32,10 +30,10 @@ public class UserRestController {
 	@RequestMapping("/is-duplicated-id")
 	public Map<String, Object> isDuplicatedId(
 			@RequestParam("loginId") String loginId) {
-		
+
 		// db 조회
 		UserEntity user = userBO.getUserEntityByLoginId(loginId);
-		
+
 		// 응답값
 		Map<String, Object> result = new HashMap<>();
 		result.put("code", 200);
@@ -46,6 +44,7 @@ public class UserRestController {
 		}
 		return result;
 	}
+
 	/**
 	 * 
 	 * @param loginId
@@ -56,19 +55,15 @@ public class UserRestController {
 	 * @return
 	 */
 	@PostMapping("/sign-up")
-	public Map<String,Object> signup(
-			@RequestParam("loginId") String loginId,
-			@RequestParam("password") String password,
-			@RequestParam("name") String name,
-			@RequestParam("phoneNumber") String phoneNumber,
-			@RequestParam("email") String email){
-		
-		
-		// String hashedPassword = EncryptUtils.md5(password);	
-		
+	public Map<String, Object> signup(@RequestParam("loginId") String loginId,
+			@RequestParam("password") String password, @RequestParam("name") String name,
+			@RequestParam("phoneNumber") String phoneNumber, @RequestParam("email") String email) {
+
+		// String hashedPassword = EncryptUtils.md5(password);
+
 		// db insert
 		UserEntity user = userBO.addUser(loginId, password, name, email, phoneNumber);
-		
+
 		// 응답값
 		Map<String, Object> result = new HashMap<>();
 		if (user != null) {
@@ -80,6 +75,7 @@ public class UserRestController {
 		}
 		return result;
 	}
+
 	/**
 	 * 
 	 * @param loginId
@@ -88,33 +84,30 @@ public class UserRestController {
 	 * @return
 	 */
 	@PostMapping("/sign-in")
-	public Map<String,Object> signIn(
-			@RequestParam("loginId") String loginId,
-			@RequestParam("password") String password,
-			HttpServletRequest request){
-		
+	public Map<String, Object> signIn(@RequestParam("loginId") String loginId,
+			@RequestParam("password") String password, HttpServletRequest request) {
+
 		// password 해싱
-		
-		
+
 		// DB 조회 - loginId, 해싱된 비밀번호 => UserEntity
-		UserEntity user = userBO.getUserEntityByLoginIdPassword(loginId,password);
-				
+		UserEntity user = userBO.getUserEntityByLoginIdPassword(loginId, password);
+
 		// 로그인 처리
-		Map<String,Object> result = new HashMap<>();
+		Map<String, Object> result = new HashMap<>();
 		if (user != null) { // 성공
 			// 세션에 사용자 정보를 담는다.(사용자 각각 마다)
 			HttpSession session = request.getSession();
-			session.setAttribute("userId",user.getId());
+			session.setAttribute("userId", user.getId());
 			session.setAttribute("userLoginId", user.getLoginId());
 			session.setAttribute("userName", user.getName());
-			
+
 			result.put("code", 200);
-			result.put("result", "성공");			
+			result.put("result", "성공");
 		} else { // 실패
 			result.put("code", 403);
 			result.put("error_message", "존재하지 않는 사용자입니다.");
 		}
-		
+
 		return result;
 	}
 
