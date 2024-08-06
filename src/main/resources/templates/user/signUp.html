@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/defaultLayout}">
+	
 <section layout:fragment="content"
 	class="contents d-flex justify-content-center">
 	<div class="sign-up-box">
@@ -51,7 +52,7 @@
 <th:block layout:fragment="script">
 	<script>
 		$(document).ready(function(){
-		
+
 		$("#loginIdCheckBtn").on('click',function(){
 			$("#idCheckLength").addClass("d-none");
 			$("#idCheckDuplicated").addClass("d-none");
@@ -128,15 +129,14 @@
 					
 					let url = $(this).attr("action");
 					console.log(url);
-					let params = $(this).serialize(); // 폼태그에 있는 name 속성과 value를 파라미터로 구성
+					let params = $(this).serialize(); 
 					console.log(params);
 					
 					
-					$.post(url, params) // request
-					.done(function(data) { // response
+					$.post(url, params) 
+					.done(function(data) { 
 						if (data.code == 200) {
 							alert("가입을 환영합니다. 로그인 해주세요.");
-							// 로그인 화면 이동
 							location.href = "/user/sign-in-view";
 						} else {
 							alert(data.error_message);

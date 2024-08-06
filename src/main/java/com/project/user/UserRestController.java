@@ -55,11 +55,14 @@ public class UserRestController {
 	 * @return
 	 */
 	@PostMapping("/sign-up")
-	public Map<String, Object> signup(@RequestParam("loginId") String loginId,
-			@RequestParam("password") String password, @RequestParam("name") String name,
-			@RequestParam("phoneNumber") String phoneNumber, @RequestParam("email") String email) {
+	public Map<String, Object> signup(
+			@RequestParam("loginId") String loginId,
+			@RequestParam("password") String password,
+			@RequestParam("name") String name,
+			@RequestParam("phoneNumber") String phoneNumber,
+			@RequestParam("email") String email) {
 
-		// String hashedPassword = EncryptUtils.md5(password);
+		 //String hashedPassword = EncryptUtils.md5(password);
 
 		// db insert
 		UserEntity user = userBO.addUser(loginId, password, name, email, phoneNumber);
@@ -84,11 +87,13 @@ public class UserRestController {
 	 * @return
 	 */
 	@PostMapping("/sign-in")
-	public Map<String, Object> signIn(@RequestParam("loginId") String loginId,
-			@RequestParam("password") String password, HttpServletRequest request) {
+	public Map<String, Object> signIn(
+			@RequestParam("loginId") String loginId,
+			@RequestParam("password") String password,
+			HttpServletRequest request) {
 
-		// password 해싱
-
+		//String hashedPassword = EncryptUtils.md5(password);
+		
 		// DB 조회 - loginId, 해싱된 비밀번호 => UserEntity
 		UserEntity user = userBO.getUserEntityByLoginIdPassword(loginId, password);
 

@@ -28,6 +28,59 @@
 
 <th:block layout:fragment="script">
     <script>
-
+    	$(document).ready(function(){
+    	$("#postListBtn").on('click',function(){
+    		location.href="post/post-list-view"
+    	});
+    	$("#clearBtn").on('click',function(){
+    		$("#userId").val("")
+    		$("#point").val("")
+    		$("#subject").val("")
+    		$("#content").val("")
+    	});
+    	$("#saveBtn").on('click',function(){
+    		let userId = $("#userId").val().trim();
+    		let point = $("#point").val().trim();
+    		let subject = $("#subject").val().trim();
+    		let content = $("#content").val().trim();
+    		
+    		if (!userId) {
+    			alert("작성자를 입력해주세요");
+    			return;
+    		}
+    		if (!point){
+    			alert("별점을 입력해주세요");
+    			return;
+    		}
+    		if (!subject) {
+    			alert("제목을 입력해주세요");
+    			return;
+    		}
+    		if (!content) {
+    			alert("내용을 입력해주세요");
+    			return;
+    		}
+    		
+			console.log(subject);
+			console.log(content);
+			
+			$.ajax({
+				type:"post"
+				,url:"/post/create"
+				,data:formData
+				
+				,success:function(data){
+					if (data.code == 200) {
+						alert("글 저장완료");
+					}else{
+						alert(data.error_message);
+					}
+				}
+					,error:function(e){
+						alert("글 저장 실패");
+				}
+			});
+    	});
+    });
     </script>
 </th:block>
