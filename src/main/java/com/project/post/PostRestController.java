@@ -1,5 +1,6 @@
 package com.project.post;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.post.bo.PostBO;
+
+import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/post")
 @RestController
@@ -25,5 +28,11 @@ public class PostRestController {
 			@RequestParam("content")String content,
 			HttpSession session){
 		
+		String userLoginId = (String)session.getAttribute("userLoginId");
+		
+		Map<String, Object> result = new HashMap<>();
+		result.put("code", 200);
+		result.put("result", "성공");
+		return result;
 	}
 }

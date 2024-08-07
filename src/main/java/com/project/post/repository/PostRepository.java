@@ -1,5 +1,7 @@
 package com.project.post.repository;
 
-public class PostRepository {
+import com.project.post.entity.PostEntity;
 
+public class PostRepository extends JpaRepository<PostEntity, Integer>{
+	
 }
