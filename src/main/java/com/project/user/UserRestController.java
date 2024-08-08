@@ -108,7 +108,7 @@ public class UserRestController {
 
 			result.put("code", 200);
 			result.put("result", "성공");
-		} else { // 실패
+		} else { 
 			result.put("code", 403);
 			result.put("error_message", "존재하지 않는 사용자입니다.");
 		}

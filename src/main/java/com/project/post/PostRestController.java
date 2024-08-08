@@ -20,6 +20,15 @@ public class PostRestController {
 	@Autowired
 	private PostBO postBO;
 	
+	/**
+	 * 글쓰기
+	 * @param userId
+	 * @param point
+	 * @param subject
+	 * @param content
+	 * @param session
+	 * @return
+	 */
 	@PostMapping("/create")
 	public Map<String,Object> create(
 			@RequestParam("userId")int userId,
@@ -29,6 +38,8 @@ public class PostRestController {
 			HttpSession session){
 		
 		String userLoginId = (String)session.getAttribute("userLoginId");
+		
+		postBO.addPost(userId, userLoginId, subject, content, point);
 		
 		Map<String, Object> result = new HashMap<>();
 		result.put("code", 200);

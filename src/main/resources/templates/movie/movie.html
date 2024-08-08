@@ -1,7 +1,9 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/defaultLayout}">
+
 <section layout:fragment="content"
 	class="contents d-flex justify-content-center align-items-center">
 	<section class="col-10 bg-light">
@@ -13,34 +15,27 @@
 				</div>
 			</div>
 		</div>
-		<div class="d-flex justify-content-between">
-			<article class="media-box">
-				<img
-					src="http://marondal.com/material/images/dulumary/web/front/bootstrap/test05_best1.jpg"
-					alt="영상1">
-			</article>
-			<article class="media-box">
-				<img
-					src="http://marondal.com/material/images/dulumary/web/front/bootstrap/test05_best1.jpg"
-					alt="영상1">
-			</article>
-			<article class="media-box">
-				<img
-					src="http://marondal.com/material/images/dulumary/web/front/bootstrap/test05_best1.jpg"
-					alt="영상1">
-			</article>
-			<article class="media-box">
-				<img
-					src="http://marondal.com/material/images/dulumary/web/front/bootstrap/test05_best1.jpg"
-					alt="영상1">
-			</article>
-		</div>
+		<table class="table text-center">
+			<thead>
+				<tr>
+					<th>영화</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="movie : ${movieList}">
+					<td th:text="${movie.imagepath}"></td>
+					<!-- <td><a th:href="@{/post/post-detail-view(postId=${post.id}, userId=13)}" th:text="${post.subject}"></a></td> -->
+					<!-- <td><a th:href="|/post/post-detail-view?postId=${post.id}|" th:text="${post.subject}"></a></td> -->
+				</tr>
+			</tbody>
+		</table>
 	</section>
 </section>
 </section>
-
 <th:block layout:fragment="script">
 	<script>
-		
+		$(document).ready(function() {
+			$()
+		});
 	</script>
 </th:block>

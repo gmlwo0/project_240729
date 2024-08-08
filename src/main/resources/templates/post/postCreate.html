@@ -30,18 +30,18 @@
     <script>
     	$(document).ready(function(){
     	$("#postListBtn").on('click',function(){
-    		location.href="post/post-list-view"
+    		location.href="/post/post-list-view"
     	});
     	$("#clearBtn").on('click',function(){
     		$("#userId").val("")
     		$("#point").val("")
-    		$("#subject").val("")
+    		$("#movieId").val("")
     		$("#content").val("")
     	});
     	$("#saveBtn").on('click',function(){
     		let userId = $("#userId").val().trim();
     		let point = $("#point").val().trim();
-    		let subject = $("#subject").val().trim();
+    		let movieId = $("#movieId").val();
     		let content = $("#content").val().trim();
     		
     		if (!userId) {
@@ -52,7 +52,7 @@
     			alert("별점을 입력해주세요");
     			return;
     		}
-    		if (!subject) {
+    		if (!movieId) {
     			alert("제목을 입력해주세요");
     			return;
     		}
@@ -61,14 +61,17 @@
     			return;
     		}
     		
-			console.log(subject);
+			console.log(userId);
+			console.log(movieId);
 			console.log(content);
+			console.log(point);
+			
+			
 			
 			$.ajax({
 				type:"post"
-				,url:"/post/create"
-				,data:formData
-				
+				,url:"/post/create"		
+				,data:{"userId":userId,"movieId":movieId,"content":content,"point":point}
 				,success:function(data){
 					if (data.code == 200) {
 						alert("글 저장완료");
