@@ -10,7 +10,7 @@
 			<input type="text" id="userId"class="form-control"placeholder="작성자">
 			<input type="text" id="point" class="form-control col-5" placeholder="별점/5">
 		</div>
-		<input type="text" id="subject" class="form-control" placeholder="제목">
+		<input type="text" id=movieId class="form-control" placeholder="제목">
 		<textarea rows="10" id="content" class="form-control" placeholder="내용"></textarea>
 		
 		
@@ -24,6 +24,7 @@
 			</div>
 		</div>
 	</div>
+	
 </section>
 
 <th:block layout:fragment="script">
@@ -71,7 +72,8 @@
 			$.ajax({
 				type:"post"
 				,url:"/post/create"		
-				,data:{"userId":userId,"movieId":movieId,"content":content,"point":point}
+				,data:{"userId":userId, "movieId":movieId,
+					"content":content, "point":point}
 				,success:function(data){
 					if (data.code == 200) {
 						alert("글 저장완료");
