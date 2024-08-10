@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.movie.mapper.MovieMapper">
+
+    <select id="getMovieList" resultType="com.project.movie.domain.Movie">
+		SELECT
+			`id`
+			,`title`
+			,`director`
+			,`opendate`
+			,`imagepath`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`movie`
+
+    </select>
+
+</mapper>
