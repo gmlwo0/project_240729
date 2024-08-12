@@ -15,23 +15,23 @@
 				</div>
 			</div>
 		</div>
-		<table class="table text-center">
-			<thead>
+	<table class="table text-center">
+			<thead >
 				<tr>
 					<th>영화</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="movie : ${movieList}">
-					<td th:text="${movie.imagepath}"></td>
+					<td><img th:src="${movie.imagepath}" class=w-10></td>
 				</tr>
 			</tbody>
-		</table>
+		</table> 
 	</section>
 </section>
 </section>
 <th:block layout:fragment="script">
 	<script>
-
+		
 	</script>
 </th:block>

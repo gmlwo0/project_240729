@@ -21,9 +21,7 @@ public class MovieController {
 	
 	@GetMapping("/movie/movie-list-view")
 	public String movieListView(Model model, HttpSession session) {
-		
 		List<Movie> movieList = movieBO.getMovieList();
-		
 		model.addAttribute("movieList", movieList);
 		
 		return "movie/movie";

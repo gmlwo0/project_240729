@@ -23,19 +23,15 @@
 			<tbody>
 				<tr th:each="post : ${postList}">
 					<td th:text="${post.id}">1</td>
-					<!-- <td><a th:href="@{/post/post-detail-view(postId=${post.id}, userId=13)}" th:text="${post.subject}"></a></td> -->
 					<td><a th:href="|/post/post-detail-view?postId=${post.id}|"
-						th:text="${post.subject}"></a></td>
+						th:text="${post.userId}"></a></td>
 					<td><a th:href="|/post/post-detail-view?postId=${post.id}|"
-						th:text="${post.subject}"></a></td>
-					<td><a th:href="|/post/post-detail-view?postId=${post.id}|"
-						th:text="${post.subject}"></a></td>
-					<td><a th:href="|/post/post-detail-view?postId=${post.id}|"
-						th:text="${post.subject}"></a></td>
-					<td
-						th:text="${#temporals.format(post.createdAt, 'yyyy년 M월 d일 HH:mm:ss')}">2024-07-16</td>
-					<td
-						th:text="${#temporals.format(post.updatedAt, 'yyyy년 M월 d일 HH:mm:ss')}">2024-07-16</td>
+						th:text="${post.movieId}"></a></td>
+					<td th:text="${post.cotent}"></td>
+					<td th:text="${post.point}"></td>
+					
+					<td	th:text="${#temporals.format(post.createdAt, 'yyyy년 M월 d일 HH:mm:ss')}">2024-07-16</td>				
+					<td th:text="${#temporals.format(post.updatedAt, 'yyyy년 M월 d일 HH:mm:ss')}">2024-07-16</td>
 				</tr>
 				<div class="d-flex">
 					<select>

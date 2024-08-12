@@ -5,7 +5,7 @@
 
 <mapper namespace="com.project.movie.mapper.MovieMapper">
 
-    <select id="getMovieList" resultType="com.project.movie.domain.Movie">
+    <select id="getMovieList" parameterType="int" resultType="com.project.movie.domain.Movie">
 		SELECT
 			`id`
 			,`title`

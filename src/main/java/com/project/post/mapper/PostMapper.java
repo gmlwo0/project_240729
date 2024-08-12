@@ -6,6 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.project.post.domain.Post;
+
 @Mapper
 public interface PostMapper {
 	public List<Map<String,Object>> testList();
@@ -16,5 +18,12 @@ public interface PostMapper {
 			@Param("subject") String subject, 
 			@Param("content") String content, 
 			@Param("point") double point);	
+	
+	public Post selectPostByPostIdUserId(
+			@Param("userId") int userId, 
+			@Param("postId") int postId);
+	
+	public List<Post> selectPostListByUserId(
+			@Param("userId") int userId);
 }
 

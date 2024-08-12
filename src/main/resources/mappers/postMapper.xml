@@ -30,4 +30,26 @@
 			, NOW()
 		)
 	</insert>
+	
+	<select id="selectPostListByUserId" parameterType="int" resultType="com.project.post.domain.Post">
+		SELECT
+			`id`
+			,`userId`
+			,`movieId`
+			,`content`
+			,`point`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`post`
+		WHERE
+			`userId` = #{userId}
+<!-- 			<if test="direction == 'next'">
+			<![CDATA[
+			AND `id` < #{standardId}
+			]]>
+			</if> -->
+		ORDER BY `id` DESC
+		LIMIT ${limit}
+	</select>
  </mapper>

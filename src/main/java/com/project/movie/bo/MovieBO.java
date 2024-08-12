@@ -20,8 +20,7 @@ public class MovieBO {
 	}
 
 	// 영화목록 반복문 순회
-	
-	   public void processMovieList() {
+	   public void MovieList() {
 	        List<Movie> movieList = getMovieList();
 		for (Movie movie : movieList) {
 		}
