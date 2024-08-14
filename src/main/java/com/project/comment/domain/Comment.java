@@ -1,4 +1,4 @@
-package com.project.post.domain;
+package com.project.comment.domain;
 
 import java.time.LocalDateTime;
 
@@ -7,15 +7,11 @@ import lombok.ToString;
 
 @ToString
 @Data
-public class Post {
-
-	
+public class Comment {
 	private int id;
 	private int userId;
-	private String movieId;
-	private String title;
+	private int postId;
 	private String content;
-	private double point;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 }

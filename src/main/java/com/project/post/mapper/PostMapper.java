@@ -24,6 +24,9 @@ public interface PostMapper {
 			@Param("postId") int postId);
 	
 	public List<Post> selectPostListByUserId(
-			@Param("userId") int userId);
+			@Param("userId") int userId,
+			@Param("standardId") Integer standardId,
+			@Param("direction") String direction,
+			@Param("limit") int limit);
 }
 

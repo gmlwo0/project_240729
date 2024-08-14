@@ -52,4 +52,19 @@
 		ORDER BY `id` DESC
 		LIMIT ${limit}
 	</select>
+	<select id="selectPostByPostIdUserId" parameterType="map" resultType="com.project.post.domain.Post">
+		SELECT
+			`id`
+			,`userId`
+			,`movieId`
+			,`content`
+			,`point`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`post`
+		WHERE
+			`userId` = #{userId}
+			AND `id` = #{postId}
+	</select>
  </mapper>
