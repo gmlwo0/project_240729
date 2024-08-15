@@ -15,7 +15,7 @@ public class PostBO {
 	private PostMapper postMapper;
 	
 	public void addPost(int userId,String userLoginId,
-			String subject,String content,double point) {	
+			String movieId,String content,double point) {	
 	} 
 	public Post getPostByPostIdUserId(int userId, int postId) {
 		return postMapper.selectPostByPostIdUserId(userId, postId);

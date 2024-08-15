@@ -33,13 +33,13 @@ public class PostRestController {
 	public Map<String,Object> create(
 			@RequestParam("userId")int userId,
 			@RequestParam("point")double point,
-			@RequestParam("subject")String subject,
+			@RequestParam("movieId")String movieId,
 			@RequestParam("content")String content,
 			HttpSession session){
 		
 		String userLoginId = (String)session.getAttribute("userLoginId");
 		
-		postBO.addPost(userId, userLoginId, subject, content, point);
+		postBO.addPost(userId, userLoginId, movieId, content, point);
 		
 		Map<String, Object> result = new HashMap<>();
 		result.put("code", 200);

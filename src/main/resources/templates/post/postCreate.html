@@ -77,6 +77,7 @@
 				,success:function(data){
 					if (data.code == 200) {
 						alert("글 저장완료");
+						location.href="/post/post-list-view"
 					}else{
 						alert(data.error_message);
 					}

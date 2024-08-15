@@ -15,7 +15,7 @@ public interface PostMapper {
 	
 	public void insertPost(
 			@Param("userId") int userId, 
-			@Param("subject") String subject, 
+			@Param("movieId") String movieId, 
 			@Param("content") String content, 
 			@Param("point") double point);	
 	
