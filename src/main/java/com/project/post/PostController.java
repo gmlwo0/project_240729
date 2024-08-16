@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.project.comment.bo.CommentBO;
+import com.project.comment.domain.Comment;
+import com.project.comment.mapper.CommentMapper;
 import com.project.post.bo.PostBO;
 import com.project.post.domain.Post;
 
@@ -21,7 +24,9 @@ public class PostController {
 	@Autowired
 	private PostBO postBO;
 
-
+	
+	@Autowired
+	private CommentMapper commentMapper;
 /**
  * 
  * @param prevIdparam
@@ -69,13 +74,13 @@ public class PostController {
 	}
 	
 
-	/**
-	 * 
-	 * @param postId
-	 * @param model
-	 * @param session
-	 * @return
-	 */
+/**
+ * 
+ * @param postId
+ * @param model
+ * @param session
+ * @return
+ */
 	@GetMapping("/post-detail-view")
 	public String postDetailView(
 			@RequestParam("postId") int postId,
@@ -84,9 +89,10 @@ public class PostController {
 		// db 조회 - userId,postId
 		int userId = (int) session.getAttribute("userId");
 		Post post = postBO.getPostByPostIdUserId(userId,postId);
-
+		List<Comment> commentList = commentMapper.selectCommentListByPostId(postId);
 		// model에 담기
 		model.addAttribute("post", post);
+		model.addAttribute("commentList", commentList);	
 		// 화면 이동
 		return "post/postDetail";
 	}

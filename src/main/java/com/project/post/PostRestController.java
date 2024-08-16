@@ -20,15 +20,15 @@ public class PostRestController {
 	@Autowired
 	private PostBO postBO;
 	
-	/**
-	 * 글쓰기
-	 * @param userId
-	 * @param point
-	 * @param subject
-	 * @param content
-	 * @param session
-	 * @return
-	 */
+/**
+ * 
+ * @param userId
+ * @param point
+ * @param movieId
+ * @param content
+ * @param session
+ * @return
+ */
 	@PostMapping("/create")
 	public Map<String,Object> create(
 			@RequestParam("userId")int userId,

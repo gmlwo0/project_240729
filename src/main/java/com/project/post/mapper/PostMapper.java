@@ -13,6 +13,17 @@ public interface PostMapper {
 	public List<Map<String,Object>> testList();
 	
 	
+	public List<Post> selectPostListByUserId(
+			@Param("userId") int userId,
+			@Param("standardId") Integer standardId,
+			@Param("direction") String direction,
+			@Param("limit") int limit);
+	
+	
+	public int selectPostIdByUserIdAsSort(
+			@Param("userId") int userId,
+			@Param("sort") String sort);
+	
 	public void insertPost(
 			@Param("userId") int userId, 
 			@Param("movieId") String movieId, 
@@ -22,11 +33,5 @@ public interface PostMapper {
 	public Post selectPostByPostIdUserId(
 			@Param("userId") int userId, 
 			@Param("postId") int postId);
-	
-	public List<Post> selectPostListByUserId(
-			@Param("userId") int userId,
-			@Param("standardId") Integer standardId,
-			@Param("direction") String direction,
-			@Param("limit") int limit);
 }
 
