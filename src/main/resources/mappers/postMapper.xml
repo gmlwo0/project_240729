@@ -17,7 +17,6 @@
 			,`movieId`
 			,`content`
 			,`point`
-			,`title`
 			,`createdAt`
 			,`updatedAt`
 		)
@@ -27,7 +26,6 @@
 			,#{movieId}
 			, #{content}
 			, #{point}
-			, #{title}
 			, NOW()
 			, NOW()
 		)
@@ -59,7 +57,6 @@
 			`id`
 			,`userId`
 			,`movieId`
-			,`title`
 			,`content`
 			,`point`
 			,`createdAt`

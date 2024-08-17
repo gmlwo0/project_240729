@@ -1,5 +1,7 @@
 package com.project.comment.domain;
 
+import java.util.List;
+
 import com.project.user.entity.UserEntity;
 
 import lombok.Data;
@@ -14,4 +16,8 @@ public class CommentView {
 	
 	// 댓글쓴이
 	private UserEntity user;
+	
+	// 댓글 N개
+	private List<CommentView> commentList;
+	
 }

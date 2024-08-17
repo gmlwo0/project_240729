@@ -1,14 +1,15 @@
 package com.project.post.bo;
 
+
+
 import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.comment.domain.Comment;
-import com.project.comment.mapper.CommentMapper;
-import com.project.movie.domain.Movie;
+import com.project.comment.bo.CommentBO;
+import com.project.comment.domain.CommentView;
 import com.project.post.domain.Post;
 import com.project.post.mapper.PostMapper;
 
@@ -17,8 +18,9 @@ public class PostBO {
 
 	@Autowired
 	private PostMapper postMapper;
-	
 
+	@Autowired
+	private CommentBO commentBO;
 	
 	public void addPost(int userId,String userLoginId,
 			String movieId,String content,double point) {	
@@ -67,4 +69,5 @@ public class PostBO {
 			int minPostId = postMapper.selectPostIdByUserIdAsSort(userId,"ASC");
 			return minPostId == nextId;
 	}	
+
 }

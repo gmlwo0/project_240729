@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.project.comment.domain.CommentMapper">
+<mapper namespace="com.project.comment.mapper.CommentMapper">
 	<insert id="insertComment" parameterType="map">
 		INSERT INTO `comment`
 		(
@@ -25,8 +25,8 @@
 	<select id="selectCommentList" resultType="com.project.comment.domain.Comment">
 		SELECT
 			`id`
-			,`postId`
 			,`userId`
+			,`postId`
 			,`content`
 			,`createdAt`
 			,`updatedAt`
@@ -37,8 +37,8 @@
 	<select id="selectCommentListByPostId" parameterType="int" resultType="com.project.comment.domain.Comment">
 		SELECT
 			`id`
-			,`postId`
 			,`userId`
+			,`postId`
 			,`content`
 			,`createdAt`
 			,`updatedAt`

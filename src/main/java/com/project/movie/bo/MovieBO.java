@@ -25,4 +25,8 @@ public class MovieBO {
 		for (Movie movie : movieList) {
 		}
 	}
+	    // 영화 제목으로 영화 찾기
+	    public Movie getMovieByTitle(String title) {
+	        return movieMapper.getMovieByTitle(title);
+	    }
 }

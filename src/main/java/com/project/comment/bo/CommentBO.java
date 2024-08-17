@@ -20,9 +20,7 @@ public class CommentBO {
 	
 	@Autowired
 	private UserBO userBO;
-	
-	@Autowired
-	private PostBO postBO;
+
 	
 	public void addComment(int postId, int userId, String content) {
 		commentMapper.insertComment(postId, userId, content);
@@ -31,8 +29,13 @@ public class CommentBO {
 		public List<CommentView> generateCommentViewListByPostId(int postId) {
 			List<CommentView> commentViewList = new ArrayList<>();
 			
+			
 			// 댓글들 가져옴
 			List<Comment> commentList = commentMapper.selectCommentListByPostId(postId);
+			
+			if (commentList == null || commentList.isEmpty()) {
+				return commentViewList; // 비어있는 리스트 반환
+			}
 			
 			// 반복문 순회 => Comment -> CommentView   => list에 담음
 			for (Comment comment : commentList) {

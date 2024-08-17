@@ -1,37 +1,70 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/defaultLayout}">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/defaultLayout}">
 
 <section layout:fragment="content"
-	class="contents d-flex justify-content-center align-items-center">
-	<section class="col-10 bg-light">
-		<div class="col-3 d-flex align-items-end">
-			<div class="input-group mb-2">
-				<input type="text" class="form-control">
-				<div class="input-group-append">
-					<button class="btn btn-light" type="button">검색</button>
-				</div>
-			</div>
-		</div>
-	<table class="table text-center">
-			<thead >
-				<tr>
-					<th>영화</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="movie : ${movieList}">
-					<td><img th:src="${movie.imagepath}" class=w-50></td>
-				</tr>
-			</tbody>
-		</table> 
-	</section>
-</section>
-</section>
-<th:block layout:fragment="script">
-	<script>
+         class="contents d-flex justify-content-center align-items-center">
+    <section class="col-10 bg-light">
+        <div class="col-3 d-flex align-items-end">
+            <div class="input-group mb-2">
+                <input type="text" id="searchKeyword" class="form-control" placeholder="영화를 검색하세요">
+                <div class="input-group-append">
+                    <button id="search" class="btn btn-light" type="button">검색</button>
+                </div>
+            </div>
+        </div>
+        <table class="table text-center">
+            <thead>
+                <tr>
+                    <th>영화</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 영화 리스트를 가로로 나열 -->
+                <tr>
+                    <td th:each="movie : ${movieList}">
+                      	 <!--<a th:href="#"> 링크 설정 --> 
+                            <img th:src="${movie.imagepath}" class="img-thumbnail mx-2" style="width: 150px; height: auto;">
+                        </a>
+                    </td>
+					
+                </tr>
+            </tbody>
+        </table>
 		
-	</script>
+    </section>
+</section>
+
+<th:block layout:fragment="script">
+    <script>
+        $(document).ready(function () {
+            $("#search").on('click', function (e) {
+                e.preventDefault();
+				     var keyword = $("#searchKeyword").val().trim();
+				         if (keyword) {
+				             $.ajax({
+				              type: "GET",
+				              url: "/post/detail",
+				              data: {keyword: keyword },
+				               success: function (data) {
+				                  if (data.code === 200) {
+				                     // 영화가 존재하면 리다이렉트
+				                    location.href = "/post-detail-view";
+				                   } else {
+				                     // 영화가 존재하지 않는 경우 에러 메시지 표시
+				                      alert(data.error_message);
+				                    }
+				                 },
+				                error: function () {
+				              alert("서버 오류가 발생했습니다.");
+				            }
+				         });
+				     } else {
+				   alert("검색어를 입력해주세요.");
+				 }
+			 });
+		 });
+	 </script>
 </th:block>
+</html>

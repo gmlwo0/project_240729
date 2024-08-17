@@ -5,6 +5,7 @@
 
 <mapper namespace="com.project.movie.mapper.MovieMapper">
 
+	    <!-- 영화 목록 가져오기 -->
     <select id="getMovieList" parameterType="int" resultType="com.project.movie.domain.Movie">
 		SELECT
 			`id`
@@ -16,7 +17,21 @@
 			,`updatedAt`
 		FROM
 			`movie`
-
     </select>
 
+
+    <!-- 영화 제목으로 영화 가져오기 -->
+    <select id="getMovieByTitle" parameterType="string" resultType="com.project.movie.domain.Movie">
+        SELECT 
+        	`id`
+			,`title`
+			,`director`
+			,`opendate`
+			,`imagepath`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`movie`
+          WHERE title = #{title}
+    </select>
 </mapper>
