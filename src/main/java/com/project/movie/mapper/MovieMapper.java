@@ -16,4 +16,7 @@ public interface MovieMapper {
     // 영화 제목으로 영화 가져오기
     Movie getMovieByTitle(
     		@Param("title") String title);
+    
+    // 영화 ID로 영화 가져오기
+    Movie getMovieById(@Param("movieId") int movieId);
 }

@@ -25,13 +25,13 @@ public interface PostMapper {
 			@Param("sort") String sort);
 	
 	public void insertPost(
-			@Param("userId") int userId, 
-			@Param("movieId") String movieId, 
-			@Param("content") String content, 
+			@Param("userId") int userId,
+			//@Param("movieId") int movieId,
+			@Param("title") String title,
+			@Param("content") String content,
 			@Param("point") double point);	
 	
 	public Post selectPostByPostIdUserId(
-			@Param("userId") int userId, 
+			@Param("userId") int userId,
 			@Param("postId") int postId);
 }
-

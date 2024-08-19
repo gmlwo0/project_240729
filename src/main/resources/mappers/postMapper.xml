@@ -1,74 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
  
+
  <mapper namespace="com.project.post.mapper.PostMapper">
+
 	<select id="testList" resultType="map">
+
 		SELECT
+
 			*
+
 		FROM
+
 			`post`
+
 	</select>
+
 	
+
 	<insert id="insertPost" parameterType="map">
+
 		INSERT INTO `post`
+
 		(
+
 			`userId`
-			,`movieId`
+
+			<!--,`movieId`-->
+
 			,`title`
+
 			,`content`
+
 			,`point`
+
 			,`createdAt`
+
 			,`updatedAt`
+
 		)
+
 		VALUES
+
 		(
+
 			#{userId}
-			,#{movieId}
+
+			<!--,`movieId`-->
+
 			,#{title}
+
 			, #{content}
+
 			, #{point}
+
 			, NOW()
+
 			, NOW()
+
 		)
+
 	</insert>
+
 	
+
 	<select id="selectPostListByUserId" parameterType="int" resultType="com.project.post.domain.Post">
+
 		SELECT
+
 			`id`
+
 			,`userId`
+
 			,`movieId`
+
 			,`title`
+
 			,`content`
+
 			,`point`
+
 			,`createdAt`
+
 			,`updatedAt`
+
 		FROM
+
 			`post`
+
 		WHERE
+
 			`userId` = #{userId}
-<!-- 			<if test="direction == 'next'">
+
+		<if test="direction == 'next'">
+
 			<![CDATA[
+
 			AND `id` < #{standardId}
+
 			]]>
-			</if> -->
+
+			</if> 
+
 		ORDER BY `id` DESC
+
 		LIMIT ${limit}
+
 	</select>
+
 	<select id="selectPostByPostIdUserId" parameterType="map" resultType="com.project.post.domain.Post">
+
+		SELECT
+
+			`id`
+
+			,`userId`
+
+			,`movieId`
+
+			,`title`
+
+			,`content`
+
+			,`point`
+
+			,`createdAt`
+
+			,`updatedAt`
+
+		FROM
+
+			`post`
+
+		WHERE
+
+			`userId` = #{userId}
+
+			AND `id` = #{postId}
+
+	</select>
+	<select id="selectPostIdByUserIdAsSort" parameterType="map" resultType="int">
 		SELECT
 			`id`
-			,`userId`
-			,`movieId`
-			,`title`
-			,`content`
-			,`point`
-			,`createdAt`
-			,`updatedAt`
 		FROM
 			`post`
 		WHERE
 			`userId` = #{userId}
-			AND `id` = #{postId}
+		ORDER BY `id` ${sort}
+		LIMIT 1
 	</select>
  </mapper>

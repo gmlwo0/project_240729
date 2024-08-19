@@ -21,7 +21,7 @@
 
 
   <!-- 영화 제목으로 영화 목록 가져오기 -->
-    <select id="getMovieByTitle" parameterType="String" resultType="com.project.movie.domain.Movie">
+   <select id="getMovieByTitle" parameterType="String" resultType="com.project.movie.domain.Movie">
         SELECT
             `id`,
             `title`,
@@ -34,6 +34,20 @@
             `movie`
         WHERE
             `title` =#{title}
-    </select>
+    </select> 
 
+<select id="getMovieById" parameterType="int" resultType="com.project.movie.domain.Movie">
+    SELECT
+        id,
+        title,
+        director,
+        opendate,
+        imagepath,
+        createdAt,
+        updatedAt
+    FROM
+        movie
+    WHERE
+        `id` =#{movieId}
+</select>
 </mapper>

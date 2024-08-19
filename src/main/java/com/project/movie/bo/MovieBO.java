@@ -29,4 +29,9 @@ public class MovieBO {
 	    public Movie getMovieByTitle(String title) {
 	        return movieMapper.getMovieByTitle(title);
 	    }
+	    
+	    public Movie getMovieById(int movieId) {
+	        return movieMapper.getMovieById(movieId);
+	    }
+
 }

@@ -7,10 +7,10 @@
 	<div class="w-50">
 		<h1>영화 리뷰 작성</h1>
 		<div class="d-flex">
-			<input type="text" id="userId"class="form-control"placeholder="작성자">
-			<input type="text" id="point" class="form-control col-5" placeholder="별점/5">
+		 <!--<input type="text" id="userId"class="form-control"placeholder="작성자"> --> 
+			<input type="text" id="point" class="form-control col-10" placeholder="별점/5">
 		</div>
-		<input type="text" id=movieId class="form-control" placeholder="제목">
+		<input type="text" id=title class="form-control" placeholder="제목">
 		<textarea rows="10" id="content" class="form-control" placeholder="내용"></textarea>
 		
 		
@@ -28,65 +28,75 @@
 </section>
 
 <th:block layout:fragment="script">
-    <script>
-    	$(document).ready(function(){
-    	$("#postListBtn").on('click',function(){
-    		location.href="/post/post-list-view"
-    	});
-    	$("#clearBtn").on('click',function(){
-    		$("#userId").val("")
-    		$("#point").val("")
-    		$("#movieId").val("")
-    		$("#content").val("")
-    	});
-    	$("#saveBtn").on('click',function(){
-    		let userId = $("#userId").val().trim();
-    		let point = $("#point").val().trim();
-    		let movieId = $("#movieId").val();
-    		let content = $("#content").val().trim();
-    		
-    		if (!userId) {
-    			alert("작성자를 입력해주세요");
-    			return;
-    		}
-    		if (!point){
-    			alert("별점을 입력해주세요");
-    			return;
-    		}
-    		if (!movieId) {
-    			alert("제목을 입력해주세요");
-    			return;
-    		}
-    		if (!content) {
-    			alert("내용을 입력해주세요");
-    			return;
-    		}
-    		
-			console.log(userId);
-			console.log(movieId);
-			console.log(content);
-			console.log(point);
+	<script>
+		$(document).ready(function(){
+		$("#postListBtn").on('click',function(){
+			location.href="/post/post-list-view"
+		});
+		// 삭제
+		$("#clearBtn").on('click',function() {
+			$("#userId").val("");
+			$("#point").val("");
+			$("#title").val("");
+			//$("#movieId").val("");
+			$("#content").val("");
+		});
 			
-			
-			
-			$.ajax({
-				type:"post"
-				,url:"/post/create"		
-				,data:{"userId":userId, "movieId":movieId,
-					"content":content, "point":point}
-				,success:function(data){
-					if (data.code == 200) {
-						alert("글 저장완료");
-						location.href="/post/post-list-view"
-					}else{
-						alert(data.error_message);
+			// 글쓰기
+			$("#saveBtn").on('click',function(){
+				//let userId = $("#userId").val().trim();
+				let point = $("#point").val().trim();
+				let title = $("#title").val();
+				//let movieId = $("#movieId").val();
+				let content = $("#content").val().trim();
+				
+				//if (!userId) {
+				//	alert("작성자를 입력해주세요");
+				//	return;
+				//}
+				if (!point){
+					alert("별점을 입력해주세요");
+					return;
+				}
+				if (!title) {
+					alert("제목을 입력해주세요");
+					return;
+				}
+				if (!content) {
+					alert("내용을 입력해주세요");
+					return;
+				}
+
+		
+				
+				console.log(point);
+				//console.log(userId);
+				console.log(title);
+				//console.log(movieId);
+				console.log(content);
+				
+
+				
+				// AJAX
+				$.ajax({
+					// request
+					type:"post"
+					, url:"/post/create"
+					,data:{"point":point,"title":title,"content":content}
+					,dataType: "json"
+					, success:function(data) {
+						if (data.code == 200) {
+							alert("리뷰가 저장되었습니다.");
+							// 글목록 화면 이동
+							location.href = "/post/post-list-view";
+						} else {
+							alert(data.error_message);
+						}
 					}
-				}
-					,error:function(e){
-						alert("글 저장 실패");
-				}
+					, error:function(e) {
+						alert("글을 저장하는데 실패했습니다.");
+					}
+				});
 			});
-    	});
-    });
-    </script>
-</th:block>
+		});
+	</script>

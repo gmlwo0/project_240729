@@ -1,39 +1,32 @@
 package com.project.post.bo;
 
-
-
 import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.project.comment.bo.CommentBO;
-import com.project.comment.domain.CommentView;
+import com.project.common.FileManagerService;
 import com.project.post.domain.Post;
 import com.project.post.mapper.PostMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class PostBO {
+	//private Logger log = LoggerFactory.getLogger(PostBO.class);
+	//private Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private PostMapper postMapper;
-
-	@Autowired
-	private CommentBO commentBO;
 	
-	public void addPost(int userId,String userLoginId,
-			String movieId,String content,double point) {	
-	} 
-
-	public Post getPostByPostIdUserId(int userId, int postId) {
-		return postMapper.selectPostByPostIdUserId(userId, postId);
-	}
-
-
-
+	@Autowired
+	private FileManagerService fileManagerService;
+	
 	// 페이징 정보 필드(limit)
-	private static final int POST_MAX_SIZE =3;
+	private static final int POST_MAX_SIZE = 3;
 	
 	// input: 로그인 된 사람의 userId
 	// output: List<Post>
@@ -52,6 +45,7 @@ public class PostBO {
 			List<Post> postList = postMapper.selectPostListByUserId(userId, standardId, direction, POST_MAX_SIZE);
 			// [5,6,7] => [7,6,5]
 			Collections.reverse(postList); // 뒤집고 저장
+			
 			return postList;
 		}else if (nextId != null) { // 1) 다음
 			standardId = nextId;
@@ -59,15 +53,31 @@ public class PostBO {
 		}
 		// 3) 페이징X, 1) 다음
 		return postMapper.selectPostListByUserId(userId, standardId, direction, POST_MAX_SIZE);
-		}
-		public boolean isPrevLastPageByUserId(int userId, int prevId) {
-			int maxPostId = postMapper.selectPostIdByUserIdAsSort(userId,"DESC");
-			return maxPostId == prevId; // 같으면 마지막
-		}
-		// 다음 페이지의 마지막인가?
-		public boolean isNextLastPageByUserId(int userId, int nextId) {
-			int minPostId = postMapper.selectPostIdByUserIdAsSort(userId,"ASC");
-			return minPostId == nextId;
-	}	
+	}
+	
+	// 이전 페이지의 마지막인가?
+	public boolean isPrevLastPageByUserId(int userId, int prevId) {
+		int maxPostId = postMapper.selectPostIdByUserIdAsSort(userId,"DESC");
+		return maxPostId == prevId; // 같으면 마지막
+	}
+	// 다음 페이지의 마지막인가?
+	public boolean isNextLastPageByUserId(int userId, int nextId) {
+		int minPostId = postMapper.selectPostIdByUserIdAsSort(userId,"ASC");
+		return minPostId == nextId;
+	}
+	
+	// input: userId, postId
+	// output: Post or null
+	public Post getPostByPostIdUserId(int userId, int postId) {
+		return postMapper.selectPostByPostIdUserId(userId, postId);
+	}
+	
+	// input: 파라미터들
+	// output: X
+	public void addPost(int userId, String userLoginId, 
+			String title, String content,double point) {
 
+		postMapper.insertPost(userId, title, content, point);
+	}
+	
 }

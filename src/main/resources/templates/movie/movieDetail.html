@@ -7,12 +7,13 @@
     <div class="movie-container">
 <h1>영화 상세 정보</h1>
         <!-- 영화 목록을 순환하며 각 영화의 이미지를 표시 -->
-        <div th:each="movie : ${movieList}" class="movie-item">
+        <div th:each="movie : ${movieList}">
         <a href="/post/post-create-view">
            <img th:src="${movie.imagepath}" alt="영화 이미지" class="movie-image" style="width: 150px; height: 150px;"/>
            </a>
             <h4 th:text="${movie.title}"></h4>
             <h4 th:text="${movie.opendate}"></h4>
+            <h4 th:text="${movie.director}"></h4>
         </div>
     </div>
 

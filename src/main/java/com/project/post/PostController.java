@@ -22,18 +22,7 @@ public class PostController {
 
 	@Autowired
 	private PostBO postBO;
-
 	
-	@Autowired
-	private CommentBO commentBO;
-/**
- * 
- * @param prevIdparam
- * @param nextIdparam
- * @param session
- * @param model
- * @return
- */
 	@GetMapping("/post-list-view")
 	public String postListView(
 			@RequestParam(value="prevId",required = false) Integer prevIdparam,
@@ -53,6 +42,18 @@ public class PostController {
 		if (postList.isEmpty() == false) { // 글목록이 비어있지 않을 때 페이징 정보 세팅
 			prevId = postList.get(0).getId(); // 첫번째칸 id
 			nextId = postList.get(postList.size()-1).getId(); // 마지막칸 id
+			
+			// 이전 방향의 끝인가? 그러면 0
+			// prevId와 테이블의 제일 큰 숫자와 같으면 이전의 끝페이지
+			if (postBO.isPrevLastPageByUserId(userId,prevId)) {
+				prevId = 0;
+			}
+			
+			// 다음 방향의 끝인가? 그러면 0
+			// nextId와 테이블의 제일 작은 숫자가 같으면 다음의 끝페이지
+			if (postBO.isNextLastPageByUserId(userId,nextId)) {
+				nextId = 0;
+			}
 		}
 		
 		// 모델에 담기
@@ -64,7 +65,7 @@ public class PostController {
 	}
 	
 	/**
-	 * 
+	 * 글쓰기 화면
 	 * @return
 	 */
 	@GetMapping("/post-create-view")
@@ -72,26 +73,17 @@ public class PostController {
 		return "post/postCreate";
 	}
 	
-
-/**
- * 
- * @param postId
- * @param model
- * @param session
- * @return
- */
 	@GetMapping("/post-detail-view")
 	public String postDetailView(
 			@RequestParam("postId") int postId,
-			Model model, HttpSession session) {
-
+			Model model,HttpSession session) {
+		
 		// db 조회 - userId,postId
-		int userId = (int) session.getAttribute("userId");
-		Post post = postBO.getPostByPostIdUserId(userId,postId);
-		List<CommentView> commentViewList  = commentBO.generateCommentViewListByPostId(postId);
+		int userId = (int)session.getAttribute("userId");
+		Post post = postBO.getPostByPostIdUserId(userId, postId);
+		
 		// model에 담기
-		model.addAttribute("post", post);
-		model.addAttribute("commentViewList ", commentViewList);	
+		model.addAttribute("post",post);
 		// 화면 이동
 		return "post/postDetail";
 	}
