@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/defaultLayout}">
+<section layout:fragment="content"
+	class="contents d-flex justify-content-center">
+	<h1 th:text="`이미지`"></h1>
+		<div th:each="movie : ${movieList}">
+			<div img th:src="${movie.imagepath}"></div>
+		</div>
+
+	
+</section>
+
+<th:block layout:fragment="script">
+	<script>
+		
+	</script>
+</th:block>

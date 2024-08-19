@@ -15,7 +15,7 @@
 		VALUES
 		(
 		 #{userId}
-		,#{postId}
+		, #{postId}
 		, #{content}
 		, NOW()
 		, NOW()
