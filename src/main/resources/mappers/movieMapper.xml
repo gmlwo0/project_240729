@@ -20,18 +20,20 @@
     </select>
 
 
-    <!-- 영화 제목으로 영화 가져오기 -->
-    <select id="getMovieByTitle" parameterType="string" resultType="com.project.movie.domain.Movie">
-        SELECT 
-        	`id`
-			,`title`
-			,`director`
-			,`opendate`
-			,`imagepath`
-			,`createdAt`
-			,`updatedAt`
-		FROM
-			`movie`
-          WHERE title = #{title}
+  <!-- 영화 제목으로 영화 목록 가져오기 -->
+    <select id="getMovieByTitle" parameterType="String" resultType="com.project.movie.domain.Movie">
+        SELECT
+            `id`,
+            `title`,
+            `director`,
+            `opendate`,
+            `imagepath`,
+            `createdAt`,
+            `updatedAt`
+        FROM
+            `movie`
+        WHERE
+            `title` =#{title}
     </select>
+
 </mapper>

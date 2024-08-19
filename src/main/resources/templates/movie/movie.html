@@ -24,11 +24,11 @@
 			<tbody>
 				<tr>
 					<td th:each="movie : ${movieList}">
-						<a href="/post/post-detail-view?"><img th:src="${movie.imagepath}"
+						<a href="/post/post-detail-view?movieId=" +post.getid();>
+						<img th:src="${movie.imagepath}"
 						class="img-thumbnail mx-2" style="width: 150px; height: 150px;">
 						</a>
 					</td>
-
 				</tr>
 			</tbody>
 		</table>
@@ -41,16 +41,17 @@
 		$(document).ready(function() {
 			$("#search").on('click', function(e) {
 				e.preventDefault();
-				var keyword = $("#searchKeyword").val().trim();
+				let keyword = $("#searchKeyword").val().trim();
+				//let movieId = $(this).data("movie-id");
 				if (keyword) {
 					$.ajax({
 						type : "GET",
-						url : "/post/detail",
-						data : {"keyword" : keyword}
+						url : "/movie/detail"
+						,data : {"keyword" : keyword}
 						,success : function(data) {
-							if (data.code === 200) {
+							if (data.code == 200) {
 								// 영화가 존재하면 리다이렉트
-								location.href = "/post-detail-view";
+								location.href = "/movie/movie-detail-view?movieId=" + data.movieId();
 							} else {
 								// 영화가 존재하지 않는 경우 에러 메시지 표시
 								alert(data.error_message);
