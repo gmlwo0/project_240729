@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.common.EncryptUtils;
 import com.project.user.bo.UserBO;
 import com.project.user.entity.UserEntity;
 
@@ -62,10 +63,10 @@ public class UserRestController {
 			@RequestParam("phoneNumber") String phoneNumber,
 			@RequestParam("email") String email) {
 
-		 //String hashedPassword = EncryptUtils.md5(password);
+		 String hashedPassword = EncryptUtils.md5(password);
 
 		// db insert
-		UserEntity user = userBO.addUser(loginId, password, name, email, phoneNumber);
+		UserEntity user = userBO.addUser(loginId, hashedPassword, name, email, phoneNumber);
 
 		// 응답값
 		Map<String, Object> result = new HashMap<>();
@@ -92,10 +93,10 @@ public class UserRestController {
 			@RequestParam("password") String password,
 			HttpServletRequest request) {
 
-		//String hashedPassword = EncryptUtils.md5(password);
+		String hashedPassword = EncryptUtils.md5(password);
 		
 		// DB 조회 - loginId, 해싱된 비밀번호 => UserEntity
-		UserEntity user = userBO.getUserEntityByLoginIdPassword(loginId, password);
+		UserEntity user = userBO.getUserEntityByLoginIdPassword(loginId, hashedPassword);
 
 		// 로그인 처리
 		Map<String, Object> result = new HashMap<>();

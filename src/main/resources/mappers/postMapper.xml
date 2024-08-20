@@ -11,137 +11,72 @@
 	<select id="testList" resultType="map">
 
 		SELECT
-
 			*
-
 		FROM
-
 			`post`
-
 	</select>
 
 	
 
 	<insert id="insertPost" parameterType="map">
-
 		INSERT INTO `post`
-
 		(
-
 			`userId`
-
-			<!--,`movieId`-->
-
+			,`movieId`
 			,`title`
-
 			,`content`
-
 			,`point`
-
 			,`createdAt`
-
 			,`updatedAt`
-
 		)
-
 		VALUES
-
 		(
-
 			#{userId}
-
-			<!--,`movieId`-->
-
+			,`movieId`
 			,#{title}
-
 			, #{content}
-
 			, #{point}
-
 			, NOW()
-
 			, NOW()
-
 		)
-
 	</insert>
-
-	
-
 	<select id="selectPostListByUserId" parameterType="int" resultType="com.project.post.domain.Post">
-
 		SELECT
-
 			`id`
-
 			,`userId`
-
 			,`movieId`
-
 			,`title`
-
 			,`content`
-
 			,`point`
-
 			,`createdAt`
-
 			,`updatedAt`
-
 		FROM
-
 			`post`
-
 		WHERE
-
 			`userId` = #{userId}
-
 		<if test="direction == 'next'">
-
 			<![CDATA[
-
 			AND `id` < #{standardId}
-
 			]]>
-
 			</if> 
-
 		ORDER BY `id` DESC
-
 		LIMIT ${limit}
-
 	</select>
-
 	<select id="selectPostByPostIdUserId" parameterType="map" resultType="com.project.post.domain.Post">
-
 		SELECT
-
 			`id`
-
 			,`userId`
-
 			,`movieId`
-
 			,`title`
-
 			,`content`
-
 			,`point`
-
 			,`createdAt`
-
 			,`updatedAt`
-
 		FROM
-
 			`post`
-
 		WHERE
-
 			`userId` = #{userId}
-
 			AND `id` = #{postId}
-
 	</select>
 	<select id="selectPostIdByUserIdAsSort" parameterType="map" resultType="int">
 		SELECT
@@ -153,4 +88,22 @@
 		ORDER BY `id` ${sort}
 		LIMIT 1
 	</select>
+	<update id="updatePostByPostId" parameterType="map">
+		UPDATE `post`
+		SET
+			`point` =#{point}
+			,`title` = #{title}
+			, `content` = #{content}
+			, `updatedAt` = NOW()
+		WHERE
+			`id` = #{postId}
+	</update>
+	
+	<delete id="deletePostByPostId" parameterType="int">
+		DELETE
+		FROM
+			`post`
+		WHERE
+			`id` = #{postId}
+	</delete>
  </mapper>

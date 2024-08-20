@@ -8,11 +8,11 @@
     <div class="w-50">
         <h1>영화 리뷰 작성</h1>
         <div class="d-flex">
-            <input type="text" id="userId" class="form-control" placeholder="작성자">
-            <input type="text" id="point" class="form-control col-5" placeholder="별점/5">
+           <!--  <input type="text" id="userId" class="form-control" placeholder="작성자"> -->
+            <input type="text" id="point" class="form-control col-5" th:value="${post.point}" placeholder="별점/5">
         </div>
-        <input type="text" id="movieId" class="form-control" placeholder="제목">
-        <textarea rows="10" id="content" class="form-control" placeholder="내용"></textarea>
+        <input type="text" id="title"  th:value="${post.title}" class="form-control" placeholder="제목">
+        <textarea rows="10" id="content" class="form-control" th:text="${post.content}" placeholder="내용"></textarea>
 
         <!-- 댓글 제목 -->
         <div class="card-comment-title border-bottom">
@@ -54,8 +54,8 @@
         <div class="d-flex justify-content-between">
             <button type="button" id="ListBtn" class="mt-3 btn btn-dark">목록</button>
             <div>
-                <button type="button" id="clearBtn" class="mt-3 btn btn-secondary">삭제</button>
-                <button type="button" id="renameBtn" class="mt-3 btn btn-info">수정</button>
+                <button type="button" id="clearBtn" class="mt-3 btn btn-secondary" >삭제</button>
+                <button type="button" id="renameBtn" class="mt-3 btn btn-info" th:data-post-id="${post.id}">수정</button>
                 <button type="button" id="saveBtn" class="mt-3 btn btn-warning">저장</button>
             </div>
         </div>
@@ -69,23 +69,19 @@
             $("#ListBtn").on('click',function(){
                 location.href="/post/post-list-view";
             });
-
             $("#renameBtn").on('click',function(){
                 let postId = $(this).data("post-id");
-                let userId = $("#userId").val().trim();
-                let movieId = $("#movieId").val().trim();
+               // let userId = $("#userId").val().trim();
+               // let movieId = $("#movieId").val().trim();
                 let point = $("#point").val().trim();
+                let title = $("#title").val();
                 let content = $("#content").val().trim();
-
-                if (!userId) {
-                    alert("작성자를 입력해주세요");
-                    return;
-                }
+			
                 if (!point){
                     alert("별점을 입력해주세요");
                     return;
                 }
-                if (!movieId) {
+                if (!title) {
                     alert("제목을 입력해주세요");
                     return;
                 }
@@ -94,12 +90,17 @@
                     return;
                 }
 
+				console.log(point);
+				//console.log(userId);
+				console.log(title);
+				//console.log(movieId);
+				console.log(content);
+				
                 $.ajax({
                     type: "PUT",
-                    url: "/post/update",
-                    data: {"userId": userId, "movieId": movieId, 
-                    	"content": content, "point": point},
-                    success: function(data) {
+                    url: "/post/update"
+                    ,data:{"point":point,"title":title,"content":content}
+                    ,success: function(data) {
                         if (data.code == 200) {
                             alert("리뷰가 수정되었습니다.");
                             location.reload();
@@ -108,7 +109,7 @@
                         }
                     },
                     error: function(e) {
-                        alert("리뷰를 저장하는데 실패했습니다.");
+                        alert("리뷰를 수정하는데 실패했습니다.");
                     }
                 });
             });

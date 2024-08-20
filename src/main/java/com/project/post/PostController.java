@@ -72,7 +72,13 @@ public class PostController {
 	public String postCreateView() {
 		return "post/postCreate";
 	}
-	
+	/**
+	 * 
+	 * @param postId
+	 * @param model
+	 * @param session
+	 * @return
+	 */
 	@GetMapping("/post-detail-view")
 	public String postDetailView(
 			@RequestParam("postId") int postId,

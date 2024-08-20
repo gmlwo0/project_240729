@@ -1,8 +1,11 @@
 package com.project.user.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.movie.domain.Movie;
 import com.project.user.entity.UserEntity;
 import com.project.user.repository.UserRepository;
 
@@ -37,4 +40,5 @@ public class UserBO {
 	public UserEntity getUserEntityById(int userId) {
 		return userRepository.findById(userId).orElse(null);
 	}
+	
 }

@@ -28,10 +28,19 @@ public interface PostMapper {
 			@Param("userId") int userId,
 			//@Param("movieId") int movieId,
 			@Param("title") String title,
-			@Param("content") String content,
-			@Param("point") double point);	
+			@Param("point") double point,	
+			@Param("content") String content);
 	
 	public Post selectPostByPostIdUserId(
 			@Param("userId") int userId,
 			@Param("postId") int postId);
+	
+	public void updatePostByPostId(
+			@Param("postId") int postId,
+			@Param("title") String subject, 
+			@Param("point") double point,
+			@Param("content") String content); 
+	
+	public int deletePostByPostId(int postId);
 }
+

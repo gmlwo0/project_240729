@@ -24,7 +24,7 @@
 			<tbody>
 				<tr>
 					<td th:each="movie : ${movieList}">
-						<a th:href="'/post/post-detail-view?movieId=' + ${movie.id}">
+						<a th:href="|/movie/movie-detail-view?movieId=|" + data.movieId>
 						<img th:src="${movie.imagepath}"
 						class="img-thumbnail mx-2" style="width: 150px; height: 150px;">
 						</a>
@@ -51,7 +51,6 @@
 						,data : {"keyword" : keyword}
 						,success : function(data) {
 							if (data.code == 200) {
-								
 								location.href = "/movie/movie-detail-view?movieId=" + data.movieId;
 							} else {
 								// 영화가 존재하지 않는 경우 에러 메시지 표시

@@ -34,9 +34,9 @@ public class PostRestController {
 	@PostMapping("/create")
 	public Map<String, Object> create(
 			//@RequestParam("userId")int userId,
-			@RequestParam("point") double point,
 			@RequestParam("title") String title,
 			//@RequestParam("movieId")int movieId,
+			@RequestParam("point") double point,
 			@RequestParam("content") String content,
 			HttpSession session){
 		
@@ -45,7 +45,38 @@ public class PostRestController {
 		String userLoginId = (String)session.getAttribute("userLoginId");
 		
 		// DB insert
-		postBO.addPost(userId, userLoginId, title, content, point);
+		postBO.addPost(userId, userLoginId, title, point,content );
+		
+		// 응답값
+		Map<String, Object> result = new HashMap<>();
+		result.put("code", 200);
+		result.put("result", "성공");
+		return result;
+	}
+	
+/**
+ * 
+ * @param postId
+ * @param title
+ * @param point
+ * @param content
+ * @param session
+ * @return
+ */
+	@PutMapping("/update")
+	public Map<String, Object> update(
+			@RequestParam("postId") int postId,
+			@RequestParam("title") String title,
+			@RequestParam("point") double point,
+			@RequestParam("content") String content,
+			HttpSession session) {
+		
+		// userLogin by session
+		int userId = (int)session.getAttribute("userId");
+		String userLoginId = (String)session.getAttribute("userLoginId");
+		
+		// db update
+		postBO.updatePostByPostId(userId, userLoginId, postId, title, point,content);
 		
 		// 응답값
 		Map<String, Object> result = new HashMap<>();
@@ -55,36 +86,11 @@ public class PostRestController {
 	}
 	
 	/**
-	 * 글 수정 API
+	 * 
 	 * @param postId
-	 * @param subject
-	 * @param content
-	 * @param file
 	 * @param session
 	 * @return
 	 */
-/**	@PutMapping("/update")
-	public Map<String, Object> update(
-			@RequestParam("postId") int postId,
-			@RequestParam("subject") String subject,
-			@RequestParam("content") String content,
-			@RequestParam(value = "file", required = false) MultipartFile file,
-			HttpSession session) {
-		
-		// userLogin by session
-		int userId = (int)session.getAttribute("userId");
-		String userLoginId = (String)session.getAttribute("userLoginId");
-		
-		// db update
-		postBO.updatePostByPostId(userId, userLoginId, postId, subject, content, file);
-		
-		// 응답값
-		Map<String, Object> result = new HashMap<>();
-		result.put("code", 200);
-		result.put("result", "성공");
-		return result;
-	}
-	
 	@DeleteMapping("/delete")
 	public Map<String, Object> delete(
 			@RequestParam("postId") int postId,
@@ -99,5 +105,5 @@ public class PostRestController {
 		result.put("code", 200);
 		result.put("result", "성공");
 		return result;
-	}**/
+	}
 }
