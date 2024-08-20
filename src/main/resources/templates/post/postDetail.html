@@ -74,7 +74,7 @@
                // let userId = $("#userId").val().trim();
                // let movieId = $("#movieId").val().trim();
                 let point = $("#point").val().trim();
-                let title = $("#title").val();
+                let title = $("#title").val().trim();
                 let content = $("#content").val().trim();
 			
                 if (!point){
@@ -99,7 +99,7 @@
                 $.ajax({
                     type: "PUT",
                     url: "/post/update"
-                    ,data:{"point":point,"title":title,"content":content}
+                    ,data:{ "postId": postId, "point":point,"title":title,"content":content}
                     ,success: function(data) {
                         if (data.code == 200) {
                             alert("리뷰가 수정되었습니다.");
