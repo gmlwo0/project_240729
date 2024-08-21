@@ -25,7 +25,7 @@
 					<td><a th:href="|/post/post-detail-view?postId=${post.id}|"
 						th:text="${post.title}"></a></td>
 					<td><a th:href="|/post/post-detail-view?postId=${post.id}|"
-						th:text="${post.userId}"></a></td>
+						th:text="${session.userLoginId}"></a></td>
 					<td th:text="${post.content}"></td>
 					<td th:text="${post.point}"></td>
 					<td	th:text="${#temporals.format(post.createdAt, 'yyyy년 M월 d일 HH:mm:ss')}"></td>				
@@ -39,7 +39,7 @@
 						<option>별점 순</option>
 					</select>
 					<input type="text" class="form-control col-4 ml-3" placeholder="검색어 입력">
-					<button class="btn btn-light ml-1" type="button">검색</button>
+					<button class="btn btn-light ml-1" type="button" id="search">검색</button>
 				</div>
 			</tbody>
 		</table>
@@ -59,6 +59,10 @@
 
 <th:block layout:fragment="script">
 	<script>
-
+	$(document).ready(function(){
+		$("#search").on('click', function(e){
+			
+		});
+	});
 	</script>
 </th:block>

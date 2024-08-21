@@ -22,8 +22,8 @@ public class CommentBO {
 	private UserBO userBO;
 
 	
-	public void addComment(int postId, int userId, String content) {
-		commentMapper.insertComment(postId, userId, content);
+	public void addComment(int postId, int userId, String comments) {
+		commentMapper.insertComment(postId, userId, comments);
 	}
 	// input:글번호    output:List<CommentView>
 		public List<CommentView> generateCommentViewListByPostId(int postId) {
@@ -33,7 +33,7 @@ public class CommentBO {
 			// 댓글들 가져옴
 			List<Comment> commentList = commentMapper.selectCommentListByPostId(postId);
 			
-			if (commentList == null || commentList.isEmpty()) {
+			if (commentList == null) {
 				return commentViewList; // 비어있는 리스트 반환
 			}
 			
@@ -54,4 +54,12 @@ public class CommentBO {
 			
 			return commentViewList;
 		}
+		public void deleteCommentById(int id) {
+			commentMapper.deleteCommentById(id);
+		}
+		
+		public void deleteCommentsByPostId(int postId) {
+			commentMapper.deleteCommentsByPostId(postId);
+		}
+		
 }

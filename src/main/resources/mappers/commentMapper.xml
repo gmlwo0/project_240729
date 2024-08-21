@@ -8,18 +8,18 @@
 		(
 		`userId`
 		,`postId`
-		,`content`
+		,`comments`
 		,`createdAt`
 		,`updatedAt`
-		)
+	)
 		VALUES
-		(
+	(
 		 #{userId}
 		, #{postId}
-		, #{content}
+		, #{comments}
 		, NOW()
 		, NOW()
-		)
+	)
 	</insert>
 	
 	<select id="selectCommentList" resultType="com.project.comment.domain.Comment">
@@ -27,7 +27,7 @@
 			`id`
 			,`userId`
 			,`postId`
-			,`content`
+			,`comments`
 			,`createdAt`
 			,`updatedAt`
 		FROM
@@ -39,7 +39,7 @@
 			`id`
 			,`userId`
 			,`postId`
-			,`content`
+			,`comments`
 			,`createdAt`
 			,`updatedAt`
 		FROM
@@ -47,4 +47,20 @@
 		WHERE
 			`postId` = #{postId}
 	</select>
+	
+	<delete id="deleteCommentById" parameterType="int">
+		DELETE
+		FROM	
+			`comment`
+		WHERE
+			`id` =  #{id}
+	</delete>
+	
+	<delete id="deleteCommentsByPostId" parameterType="int">
+		DELETE
+		FROM	
+			`comment`
+		WHERE
+			`postId` =  #{postId}
+	</delete>
 </mapper>

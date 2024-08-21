@@ -7,10 +7,10 @@
 	<div class="w-50">
 		<h1>영화 리뷰 작성</h1>
 		<div class="d-flex">
-		 <!--<input type="text" id="userId"class="form-control"placeholder="작성자"> --> 
+		 <input type="text" id="userId" th:value="${session.userLoginId}" class="form-control"placeholder="작성자"> 
 			<input type="text" id="point" class="form-control col-10" placeholder="별점/5">
 		</div>
-		<input type="text" id=title class="form-control"  placeholder="제목">
+		<input type="text" id=title class="form-control" placeholder="제목">
 		<textarea rows="10" id="content" class="form-control" placeholder="내용"></textarea>
 		
 		
