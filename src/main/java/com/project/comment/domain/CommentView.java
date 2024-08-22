@@ -2,6 +2,7 @@ package com.project.comment.domain;
 
 import java.util.List;
 
+import com.project.post.bo.PostBO;
 import com.project.user.entity.UserEntity;
 
 import lombok.Data;
@@ -11,6 +12,10 @@ import lombok.ToString;
 @ToString
 @Data
 public class CommentView {
+	
+	// 글 1개
+	private PostBO postBO;
+	
 	// 댓글 1개
 	private Comment comment;
 	

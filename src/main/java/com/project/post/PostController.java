@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.comment.bo.CommentBO;
+import com.project.comment.domain.Comment;
 import com.project.comment.domain.CommentView;
 import com.project.post.bo.PostBO;
 import com.project.post.domain.Post;
@@ -22,6 +23,9 @@ public class PostController {
 
 	@Autowired
 	private PostBO postBO;
+	
+	@Autowired
+	private CommentBO commentBO;
 	
 	@GetMapping("/post-list-view")
 	public String postListView(
@@ -87,9 +91,11 @@ public class PostController {
 		// db 조회 - userId,postId
 		int userId = (int)session.getAttribute("userId");
 		Post post = postBO.getPostByPostIdUserId(userId, postId);
+		List<CommentView> CommentViewList = commentBO.generateCommentViewListByPostId(postId);
 		
 		// model에 담기
 		model.addAttribute("post",post);
+		model.addAttribute("CommentViewList",CommentViewList);
 		// 화면 이동
 		return "post/postDetail";
 	}

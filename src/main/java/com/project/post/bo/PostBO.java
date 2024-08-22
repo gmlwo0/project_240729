@@ -1,15 +1,19 @@
 package com.project.post.bo;
 
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.project.common.FileManagerService;
+import com.project.comment.bo.CommentBO;
+import com.project.comment.domain.CommentView;
 import com.project.post.domain.Post;
 import com.project.post.mapper.PostMapper;
+import com.project.user.bo.UserBO;
+import com.project.user.entity.UserEntity;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,7 +26,13 @@ public class PostBO {
 	@Autowired
 	private PostMapper postMapper;
 
+	@Autowired
+	private UserBO userBO;
+	
 
+	@Autowired
+	private CommentBO commentBO;
+	
 	// 페이징 정보 필드(limit)
 	private static final int POST_MAX_SIZE = 3;
 
@@ -107,5 +117,20 @@ public class PostBO {
 		
 		// post db delete
 		int rowCount = postMapper.deletePostByPostId(postId);
+	}
+	
+	public List<CommentView> generateCommentViewList(Integer userId, int postId){
+		List<CommentView> CommentView = new ArrayList<>();
+		
+			// 글쓴이
+			UserEntity user = userBO.getUserEntityById(userId);
+			((CommentView) CommentView).setUser(user);
+			
+			// 댓글 N개
+			List<CommentView> commentViewList = commentBO.generateCommentViewListByPostId(postId);
+			// 댓글을 카드에 넣는다.
+			((CommentView) CommentView).setCommentList(commentViewList);
+			
+			return CommentView;
 	}
 }
