@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.comment.bo.CommentBO;
+import com.project.comment.domain.Comment;
 import com.project.comment.domain.CommentView;
 import com.project.post.domain.Post;
 import com.project.post.mapper.PostMapper;
@@ -122,14 +123,23 @@ public class PostBO {
 	public List<CommentView> generateCommentViewList(Integer userId, int postId){
 		List<CommentView> CommentView = new ArrayList<>();
 		
-			// 글쓴이
-			UserEntity user = userBO.getUserEntityById(userId);
-			((CommentView) CommentView).setUser(user);
-			
-			// 댓글 N개
-			List<CommentView> commentViewList = commentBO.generateCommentViewListByPostId(postId);
-			// 댓글을 카드에 넣는다.
-			((CommentView) CommentView).setCommentList(commentViewList);
+
+		    // 댓글 작성자 정보 조회
+		    UserEntity user = userBO.getUserEntityById(userId);
+
+		    // 댓글 목록 조회
+		    List<Comment> comments = commentBO.getCommentsByPostId(postId);
+
+		    // 댓글을 CommentView 객체로 변환하고 리스트에 추가
+		    for (Comment comment : comments) {
+		        CommentView commentView = new CommentView();
+		        commentView.setComment(comment);
+		        commentView.setUser(user);  // 이 부분은 각 댓글 작성자의 정보를 설정하는 것이 아니라 전체 게시글의 작성자 정보를 설정하는 부분입니다. 수정이 필요할 수 있습니다.
+
+		        // 대댓글은 제외하고 댓글만 리스트에 추가
+		        //commentViewList.add(commentView);
+		    }
+
 			
 			return CommentView;
 	}

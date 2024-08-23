@@ -4,10 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import com.project.comment.bo.CommentBO;
 import com.project.comment.domain.Comment;
+import com.project.comment.domain.CommentView;
 
 @Mapper
 public interface CommentMapper {
@@ -25,4 +24,6 @@ public interface CommentMapper {
 	public void deleteCommentById(int id);
 	
 	public void deleteCommentsByPostId(int postId);
+	
+	public List<Comment> getCommentsByPostId(int postId);
 }

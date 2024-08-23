@@ -23,6 +23,8 @@ public class CommentView {
 	private UserEntity user;
 	
 	// 댓글 N개
-	private List<CommentView> commentList;
+	private List<Comment> commentList;
+
+
 	
 }

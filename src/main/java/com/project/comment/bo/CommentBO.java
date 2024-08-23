@@ -33,18 +33,16 @@ public class CommentBO {
 			
 			// 댓글들 가져옴
 			List<Comment> commentList = commentMapper.selectCommentListByPostId(postId);
+
 			
-			if (commentList == null) {
-				return commentViewList; // 비어있는 리스트 반환
-			}
-			
-			// 반복문 순회 => Comment -> CommentView   => list에 담음
+			// 반복문 순회 
 			for (Comment comment : commentList) {
 				CommentView commentView = new CommentView();
 				
+				
 				// 댓글 1개
 				commentView.setComment(comment);
-				
+				commentView.setCommentList(commentList);
 				// 댓글쓰니
 				UserEntity user = userBO.getUserEntityById(comment.getUserId());
 				commentView.setUser(user);
@@ -63,4 +61,7 @@ public class CommentBO {
 			commentMapper.deleteCommentsByPostId(postId);
 		}
 		
+		public List<Comment> getCommentsByPostId(int postId) {
+			return commentMapper.getCommentsByPostId(postId);
+		}
 }
