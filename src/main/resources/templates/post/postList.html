@@ -32,13 +32,13 @@
 					<td th:text="${#temporals.format(post.updatedAt, 'yyyy년 M월 d일 HH:mm:ss')}"></td>
 				</tr>
 				<div class="d-flex">
-					<select>
-						<option>검색 내용 선택</option>
-						<option>영화 제목</option>
-						<option>작성자</option>
-						<option>별점 순</option>
+					<select id="searchType" class="form-control">
+					    <option value="">검색 내용 선택</option>
+					    <option value="title">영화 제목</option>
+					    <option value="user">작성자</option>
+					    <option value="rating">별점 순</option>
 					</select>
-					<input type="text" class="form-control col-4 ml-3" placeholder="검색어 입력">
+					<input type="text" id="searchKeyword" class="form-control col-9 ml-3" placeholder="검색어 입력">
 					<button class="btn btn-light ml-1" type="button" id="search">검색</button>
 				</div>
 			</tbody>
@@ -59,10 +59,18 @@
 
 <th:block layout:fragment="script">
 	<script>
-	$(document).ready(function(){
-		$("#search").on('click', function(e){
-			
+		$(document).ready(function(){
+		    $("#search").on('click', function(e){
+		        let searchType = $("#searchType").val();
+		        let searchKeyword = $("#searchKeyword").val();
+
+		        if (searchType && searchKeyword) {
+		            // 검색 요청을 보냄
+		            window.location.href = `/post/post-list-view?searchType=${searchType}&searchKeyword=${searchKeyword}`;
+		        } else {
+		            alert("검색 조건을 선택하고 검색어를 입력하세요.");
+		        }
+		    });
 		});
-	});
 	</script>
 </th:block>

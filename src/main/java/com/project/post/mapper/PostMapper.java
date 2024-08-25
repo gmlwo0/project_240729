@@ -42,5 +42,10 @@ public interface PostMapper {
 			@Param("content") String content); 
 	
 	public int deletePostByPostId(int postId);
+	
+    public  void searchPosts(
+            @Param("userId") int userId,
+            @Param("searchType") String searchType,
+            @Param("searchKeyword") String searchKeyword);
 }
 

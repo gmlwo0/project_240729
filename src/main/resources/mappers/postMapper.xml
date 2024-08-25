@@ -114,4 +114,18 @@
 		WHERE
 			`id` = #{postId}
 	</delete>
+	<select id="searchPosts" parameterType="map" resultType="Post">
+    SELECT *
+    FROM post
+    WHERE userId = #{userId}
+    <if test="searchType == 'title'">
+        AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+    </if>
+    <if test="searchType == 'user'">
+        AND userId IN (SELECT id FROM user WHERE loginId LIKE CONCAT('%', #{searchKeyword}, '%'))
+    </if>
+    <if test="searchType == 'rating'">
+        ORDER BY point DESC
+    </if>
+</select>
  </mapper>
