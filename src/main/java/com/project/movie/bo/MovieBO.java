@@ -23,6 +23,7 @@ public class MovieBO {
 	   public void MovieList() {
 	        List<Movie> movieList = getMovieList();
 		for (Movie movie : movieList) {
+	
 		}
 	}
 	    // 영화 제목으로 영화 찾기

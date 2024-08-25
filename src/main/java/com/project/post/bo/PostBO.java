@@ -119,6 +119,17 @@ public class PostBO {
 		// post db delete
 		int rowCount = postMapper.deletePostByPostId(postId);
 	}
+	public List<Post> searchPosts(
+			int userId,
+			String searchType,
+			String searchKeyword) {
+		 postMapper.searchPosts(userId, searchType, searchKeyword);
+		 return postList;
+	}
+	
+	// List<Post> postList = Post.getPostEntityList();
+
+	
 	
 	public List<CommentView> generateCommentViewList(Integer userId, int postId){
 		List<CommentView> CommentView = new ArrayList<>();

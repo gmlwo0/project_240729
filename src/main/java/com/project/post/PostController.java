@@ -31,6 +31,8 @@ public class PostController {
 	public String postListView(
 			@RequestParam(value="prevId",required = false) Integer prevIdparam,
 			@RequestParam(value="nextvId",required = false) Integer nextIdparam,
+	        @RequestParam(value = "searchType", required = false) String searchType,
+	        @RequestParam(value = "searchKeyword", required = false) String searchKeyword,
 			HttpSession session, Model model) {
 		// 로그인 여부 확인
 		Integer userId = (Integer)session.getAttribute("userId");
@@ -39,8 +41,15 @@ public class PostController {
 			return "redirect:/user/sign-in-view";
 		}
 		
-		// DB 조회 - 글 목록
 		List<Post> postList = postBO.getPostListByUserId(userId,prevIdparam,nextIdparam);
+		 if (searchType != null && searchKeyword != null) {
+		        // 검색 조건에 따른 게시글 조회
+		        postList = postBO.searchPosts(userId, searchType, searchKeyword);
+		    } else {
+		        // 기존 페이징된 게시글 목록 조회
+		        postList = postBO.getPostListByUserId(userId, prevIdparam, nextIdparam);
+		    }
+		// DB 조회 - 글 목록
 		int prevId = 0;
 		int nextId = 0;
 		if (postList.isEmpty() == false) { // 글목록이 비어있지 않을 때 페이징 정보 세팅
@@ -89,10 +98,9 @@ public class PostController {
 			Model model,HttpSession session) {
 		
 		// db 조회 - userId,postId
-		int userId = (int)session.getAttribute("userId");
+		Integer userId = (Integer)session.getAttribute("userId");
 		Post post = postBO.getPostByPostIdUserId(userId, postId);
 		List<CommentView> CommentViewList = commentBO.generateCommentViewListByPostId(postId);
-		
 		// model에 담기
 		model.addAttribute("post",post);
 		model.addAttribute("CommentViewList",CommentViewList);
