@@ -31,7 +31,7 @@ public class CommentBO {
 			 return commentMapper.selectCommentListByPostId(postId);
 			
 			// 댓글들 가져옴
-	//	List<Comment> commentList = commentMapper.selectCommentListByPostId(postId);
+		//List<Comment> commentList = commentMapper.selectCommentListByPostId(postId);
 
 //			
 //			// 반복문 순회 

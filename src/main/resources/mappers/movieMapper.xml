@@ -38,16 +38,31 @@
 
 <select id="getMovieById" parameterType="int" resultType="com.project.movie.domain.Movie">
     SELECT
-        id,
-        title,
-        director,
-        opendate,
-        imagepath,
-        createdAt,
-        updatedAt
+        `id`,
+        `title`,
+        `director`,
+        `opendate`,
+        `imagepath`,
+        `createdAt`,
+        `updatedAt`
     FROM
         movie
     WHERE
         `id` =#{movieId}
+</select>
+
+<select id="selectMovieListByKeyword" resultType="com.project.movie.domain.Movie">
+    SELECT
+
+		 `id`,
+        `title`,
+        `director,
+        `opendate`,
+        `imagepath`,
+        `createdAt`,
+        `updatedAt`
+    FROM
+     movie
+    WHERE `title` LIKE CONCAT('%', #{keyword}, '%')
 </select>
 </mapper>

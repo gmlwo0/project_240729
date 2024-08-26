@@ -20,12 +20,12 @@ public class MovieBO {
 	}
 
 	// 영화목록 반복문 순회
-	   public void MovieList() {
-	        List<Movie> movieList = getMovieList();
-		for (Movie movie : movieList) {
-	
-		}
-	}
+//	   public void MovieList() {
+//	        List<Movie> movieList = getMovieList();
+//		for (Movie movie : movieList) {
+//	
+//		}
+//	}
 	    // 영화 제목으로 영화 찾기
 	    public Movie getMovieByTitle(String title) {
 	        return movieMapper.getMovieByTitle(title);
@@ -35,4 +35,8 @@ public class MovieBO {
 	        return movieMapper.getMovieById(movieId);
 	    }
 
+	    // 검색어 기반 영화 목록 가져오기
+	    public List<Movie> getMovieListByKeyword(String keyword) {
+	        return movieMapper.selectMovieListByKeyword(keyword);
+	    }
 }
