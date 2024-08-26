@@ -41,15 +41,9 @@ public class PostController {
 			return "redirect:/user/sign-in-view";
 		}
 		
-		List<Post> postList = postBO.getPostListByUserId(userId,prevIdparam,nextIdparam);
-		 if (searchType != null && searchKeyword != null) {
-		        // 검색 조건에 따른 게시글 조회
-		        postList = postBO.searchPosts(userId, searchType, searchKeyword);
-		    } else {
-		        // 기존 페이징된 게시글 목록 조회
-		        postList = postBO.getPostListByUserId(userId, prevIdparam, nextIdparam);
-		    }
+
 		// DB 조회 - 글 목록
+		List<Post> postList = postBO.getPostListByUserId(userId,prevIdparam,nextIdparam);
 		int prevId = 0;
 		int nextId = 0;
 		if (postList.isEmpty() == false) { // 글목록이 비어있지 않을 때 페이징 정보 세팅
@@ -100,10 +94,11 @@ public class PostController {
 		// db 조회 - userId,postId
 		Integer userId = (Integer)session.getAttribute("userId");
 		Post post = postBO.getPostByPostIdUserId(userId, postId);
-		List<CommentView> CommentViewList = commentBO.generateCommentViewListByPostId(postId);
+		List<Comment> CommentList = commentBO.generateCommentViewListByPostId(postId);
+		 // List<CommentView> commentList = postBO.generateCommentViewList(postId);
 		// model에 담기
 		model.addAttribute("post",post);
-		model.addAttribute("CommentViewList",CommentViewList);
+		model.addAttribute("CommentList",CommentList);
 		// 화면 이동
 		return "post/postDetail";
 	}

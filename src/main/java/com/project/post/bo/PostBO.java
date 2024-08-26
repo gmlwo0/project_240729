@@ -106,6 +106,10 @@ public class PostBO {
 		postMapper.updatePostByPostId(postId, title, point, content);
 	}
 	
+	
+		
+		// 글목록을 가져온다. List<PostEntity>
+	
 	// input:postId, userId
 	// output:X
 	public void deletePostByPostIdUserId(int postId, int userId) {
@@ -119,39 +123,39 @@ public class PostBO {
 		// post db delete
 		int rowCount = postMapper.deletePostByPostId(postId);
 	}
-	public List<Post> searchPosts(
-			int userId,
-			String searchType,
-			String searchKeyword) {
-		 postMapper.searchPosts(userId, searchType, searchKeyword);
-		 return postList;
-	}
-	
-	// List<Post> postList = Post.getPostEntityList();
 
 	
+	// List<Post> postList = Post.getPostEntityList(){
+
+	 
+	public List<Comment> generateCommentListByPostId(int postId) {
+		// 댓글 목록 조회
+		return commentBO.getCommentsByPostId(postId);
+	//}
 	
-	public List<CommentView> generateCommentViewList(Integer userId, int postId){
-		List<CommentView> CommentView = new ArrayList<>();
-		
+	
+	//public List<CommentView> generateCommentViewList(Integer userId, int postId){
+		//List<CommentView> CommentView = new ArrayList<>();
+			
+		// 댓글 목록 조회
+		//List<Comment> comments = commentBO.getCommentsByPostId(postId);
 
-		    // 댓글 작성자 정보 조회
-		    UserEntity user = userBO.getUserEntityById(userId);
 
-		    // 댓글 목록 조회
-		    List<Comment> comments = commentBO.getCommentsByPostId(postId);
 
 		    // 댓글을 CommentView 객체로 변환하고 리스트에 추가
-		    for (Comment comment : comments) {
-		        CommentView commentView = new CommentView();
-		        commentView.setComment(comment);
-		        commentView.setUser(user);  // 이 부분은 각 댓글 작성자의 정보를 설정하는 것이 아니라 전체 게시글의 작성자 정보를 설정하는 부분입니다. 수정이 필요할 수 있습니다.
-
-		        // 대댓글은 제외하고 댓글만 리스트에 추가
-		        //commentViewList.add(commentView);
-		    }
+//		    for (Comment comment : comments) {
+//		        CommentView commentView = new CommentView();
+//		        commentView.setComment(comment.getComments());
+//
+//		        // 댓글 작성자 정보 조회
+//		        UserEntity user = userBO.getUserEntityById(userId);
+//		        commentView.setUser(user);  // 이 부분은 각 댓글 작성자의 정보를 설정하는 것이 아니라 전체 게시글의 작성자 정보를 설정하는 부분입니다. 수정이 필요할 수 있습니다.
+//		        
+//		        // 대댓글은 제외하고 댓글만 리스트에 추가
+//		        commentViewList.add(commentView);
+//		    }
 
 			
-			return CommentView;
+	//		return CommentView;
 	}
 }

@@ -40,7 +40,7 @@
 			, NOW()
 		)
 	</insert>
-	<select id="selectPostListByUserId" parameterType="int" resultType="com.project.post.domain.Post">
+	<select id="selectPostListByUserId" parameterType="map" resultType="com.project.post.domain.Post">
 		SELECT
 			`id`
 			,`userId`
@@ -114,7 +114,7 @@
 		WHERE
 			`id` = #{postId}
 	</delete>
-	<select id="searchPosts" parameterType="map" resultType="Post">
+<!-- 	<select id="searchPosts" parameterType="map" resultType="Post">
     SELECT *
     FROM post
     WHERE userId = #{userId}
@@ -127,5 +127,5 @@
     <if test="searchType == 'rating'">
         ORDER BY point DESC
     </if>
-</select>
+</select> -->
  </mapper>

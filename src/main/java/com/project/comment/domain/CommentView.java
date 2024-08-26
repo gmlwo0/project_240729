@@ -14,16 +14,16 @@ import lombok.ToString;
 public class CommentView {
 	
 	// 글 1개
-	private PostBO postBO;
+	//private Post post;
 	
 	// 댓글 1개
-	private Comment comment;
+	//private Comment comment;
 	
 	// 댓글쓴이
-	private UserEntity user;
+	//private UserEntity user;
 	
 	// 댓글 N개
-	private List<Comment> commentList;
+	//private List<Comment> commentList;
 
 
 	

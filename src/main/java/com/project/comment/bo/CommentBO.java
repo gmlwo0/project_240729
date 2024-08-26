@@ -27,31 +27,34 @@ public class CommentBO {
 		commentMapper.insertComment(postId, userId, comments);
 	}
 	// input:글번호    output:List<CommentView>
-		public List<CommentView> generateCommentViewListByPostId(int postId) {
-			List<CommentView> commentViewList = new ArrayList<>();
-			
+		public List<Comment> generateCommentViewListByPostId(int postId) {
+			 return commentMapper.selectCommentListByPostId(postId);
 			
 			// 댓글들 가져옴
-			List<Comment> commentList = commentMapper.selectCommentListByPostId(postId);
+	//	List<Comment> commentList = commentMapper.selectCommentListByPostId(postId);
 
-			
-			// 반복문 순회 
-			for (Comment comment : commentList) {
-				CommentView commentView = new CommentView();
-				
-				
-				// 댓글 1개
-				commentView.setComment(comment);
-				commentView.setCommentList(commentList);
-				// 댓글쓰니
-				UserEntity user = userBO.getUserEntityById(comment.getUserId());
-				commentView.setUser(user);
-				
-				//!!!!!! list에 넣기
-				commentViewList.add(commentView);
-			}
-			
-			return commentViewList;
+//			
+//			// 반복문 순회 
+//			for (Comment comment : commentList) {
+//				CommentView commentView = new CommentView();
+//				
+//				
+//	            // 댓글 정보 설정
+//	            commentView.setComment(comment);
+//				// 댓글 1개
+//				//commentList.set(postId, comment);
+//				//commentView.setComment(comment);
+//				//commentList.setCommentList(commentList);
+//				
+//				// 댓글쓰니
+//				UserEntity user = userBO.getUserEntityById(comment.getUserId());
+//				commentView.setUser(user);
+//				
+//				//!!!!!! list에 넣기
+//				commentList.add(commentView);
+//			}
+//			
+//			return commentViewList;
 		}
 		public void deleteCommentById(int id) {
 			commentMapper.deleteCommentById(id);
