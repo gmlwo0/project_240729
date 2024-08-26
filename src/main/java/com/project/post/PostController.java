@@ -94,7 +94,7 @@ public class PostController {
 		// db 조회 - userId,postId
 		Integer userId = (Integer)session.getAttribute("userId");
 		Post post = postBO.getPostByPostIdUserId(userId, postId);
-		List<Comment> CommentList = commentBO.generateCommentViewListByPostId(postId);
+		List<Comment> CommentList = commentBO.generateCommentListByPostId(postId);
 		 // List<CommentView> commentList = postBO.generateCommentViewList(postId);
 		// model에 담기
 		model.addAttribute("post",post);

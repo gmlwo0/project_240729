@@ -27,7 +27,7 @@ public class CommentBO {
 		commentMapper.insertComment(postId, userId, comments);
 	}
 	// input:글번호    output:List<CommentView>
-		public List<Comment> generateCommentViewListByPostId(int postId) {
+		public List<Comment> generateCommentListByPostId(int postId) {
 			 return commentMapper.selectCommentListByPostId(postId);
 			
 			// 댓글들 가져옴
@@ -54,7 +54,7 @@ public class CommentBO {
 //				commentList.add(commentView);
 //			}
 //			
-//			return commentViewList;
+//		return commentList;
 		}
 		public void deleteCommentById(int id) {
 			commentMapper.deleteCommentById(id);
@@ -65,6 +65,6 @@ public class CommentBO {
 		}
 		
 		public List<Comment> getCommentsByPostId(int postId) {
-			return commentMapper.getCommentsByPostId(postId);
+			return commentMapper.selectCommentsByPostId(postId);
 		}
 }

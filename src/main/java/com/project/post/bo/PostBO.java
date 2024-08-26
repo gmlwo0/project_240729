@@ -156,6 +156,6 @@ public class PostBO {
 //		    }
 
 			
-	//		return CommentView;
+	//		return CommentList;
 	}
 }
