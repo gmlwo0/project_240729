@@ -38,6 +38,28 @@ public class MovieController {
 	@GetMapping("/movie-list-view")
 	public String movieListView(Model model, HttpSession session) {
 		List<Movie> movieList = movieBO.getMovieList();
+		int prevId = 0;
+		int nextId = 0;
+		if (movieList.isEmpty() == false) { // 글목록이 비어있지 않을 때 페이징 정보 세팅
+			prevId = movieList.get(0).getId(); // 첫번째칸 id
+			nextId = movieList.get(movieList.size()-1).getId(); // 마지막칸 id
+			
+			// 이전 방향의 끝인가? 그러면 0
+			// prevId와 테이블의 제일 큰 숫자와 같으면 이전의 끝페이지
+			if (movieBO.isPrevLastPageByUserId(userId,prevId)) {
+				prevId = 0;
+			}
+			
+			// 다음 방향의 끝인가? 그러면 0
+			// nextId와 테이블의 제일 작은 숫자가 같으면 다음의 끝페이지
+			if (movieBO.isNextLastPageByUserId(userId,nextId)) {
+				nextId = 0;
+			}
+		}
+		
+		// 모델에 담기
+		model.addAttribute("prevId", prevId);
+		model.addAttribute("nextId", nextId);
 		model.addAttribute("movieList", movieList);
 		return "/movie/movie";
 	}
