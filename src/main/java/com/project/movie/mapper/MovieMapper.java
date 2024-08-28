@@ -23,4 +23,15 @@ public interface MovieMapper {
     // 검색어 기반 영화 목록 가져오기
     List<Movie> selectMovieListByKeyword(
     		@Param("keyword") String keyword);
+    
+	public List<Movie> selectMovieListByUserId(
+			@Param("userId") int userId,
+			@Param("standardId") Integer standardId,
+			@Param("direction") String direction,
+			@Param("limit") int limit);
+	
+	public int selectMovieIdByUserIdAsSort(
+			@Param("userId") int userId,
+			@Param("sort") String sort);
+	
 }

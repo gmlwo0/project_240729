@@ -36,8 +36,12 @@ public class MovieController {
 	}
 
 	@GetMapping("/movie-list-view")
-	public String movieListView(Model model, HttpSession session) {
+	public String movieListView(
+			@RequestParam(value="prevId",required = false) Integer prevIdparam,
+			@RequestParam(value="nextvId",required = false) Integer nextIdparam,
+			Model model, HttpSession session, int userId) {
 		List<Movie> movieList = movieBO.getMovieList();
+		// List<Movie> movieList = movieBO.getPostListByUserId(userId,prevIdparam,nextIdparam);
 		int prevId = 0;
 		int nextId = 0;
 		if (movieList.isEmpty() == false) { // 글목록이 비어있지 않을 때 페이징 정보 세팅

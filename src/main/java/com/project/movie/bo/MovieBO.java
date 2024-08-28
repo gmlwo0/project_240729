@@ -22,7 +22,7 @@ public class MovieBO {
 
 		// input: 로그인 된 사람의 userId
 		// output: List<Post>
-		public List<Movie> getPostListByUserId(int userId, Integer prevId, Integer nextId) {
+		public List<Movie> getMovieListByUserId(int userId, Integer prevId, Integer nextId) {
 			// 게시글 번호 10 9 8 | 7 6 5 | 4 3 2 | 1
 			// 만약 4 3 2 페이지에 있을 때
 			// 1) 다음: 2보다 작은 3개 DESC
@@ -34,7 +34,7 @@ public class MovieBO {
 				standardId = prevId;
 				direction = "prev";
 
-				 List<Movie> movieList = movieMapper.selectPostListByUserId(userId, standardId, direction, POST_MAX_SIZE);
+				 List<Movie> movieList = movieMapper.selectMovieListByUserId(userId, standardId, direction, POST_MAX_SIZE);
 				// [5,6,7] => [7,6,5]
 				Collections.reverse(movieList); // 뒤집고 저장
 
@@ -44,18 +44,18 @@ public class MovieBO {
 				direction = "next";
 			}
 			// 3) 페이징X, 1) 다음
-			return movieMapper.selectPostListByUserId(userId, standardId, direction, POST_MAX_SIZE);
+			return movieMapper.selectMovieListByUserId(userId, standardId, direction, POST_MAX_SIZE);
 		}
 
 		// 이전 페이지의 마지막인가?
 		public boolean isPrevLastPageByUserId(int userId, int prevId) {
-			int maxPostId = movieMapper.selectPostIdByUserIdAsSort(userId, "DESC");
+			int maxPostId = movieMapper.selectMovieIdByUserIdAsSort(userId, "DESC");
 			return maxPostId == prevId; // 같으면 마지막
 		}
 
 		// 다음 페이지의 마지막인가?
 		public boolean isNextLastPageByUserId(int userId, int nextId) {
-			int minPostId = movieMapper.selectPostIdByUserIdAsSort(userId, "ASC");
+			int minPostId = movieMapper.selectMovieIdByUserIdAsSort(userId, "ASC");
 			return minPostId == nextId;
 		}
 
