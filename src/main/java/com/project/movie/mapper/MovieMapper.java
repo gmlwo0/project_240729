@@ -24,14 +24,13 @@ public interface MovieMapper {
     List<Movie> selectMovieListByKeyword(
     		@Param("keyword") String keyword);
     
-	public List<Movie> selectMovieListByUserId(
-			@Param("userId") int userId,
+	public List<Movie> selectMovieList(
+			@Param("id") int id,
 			@Param("standardId") Integer standardId,
 			@Param("direction") String direction,
 			@Param("limit") int limit);
 	
-	public int selectMovieIdByUserIdAsSort(
-			@Param("userId") int userId,
+	public int selectMovieIdByAsSort(
 			@Param("sort") String sort);
 	
 }

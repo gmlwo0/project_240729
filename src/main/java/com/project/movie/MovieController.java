@@ -39,7 +39,7 @@ public class MovieController {
 	public String movieListView(
 			@RequestParam(value="prevId",required = false) Integer prevIdparam,
 			@RequestParam(value="nextvId",required = false) Integer nextIdparam,
-			Model model, HttpSession session, int userId) {
+			Model model, HttpSession session) { 
 		List<Movie> movieList = movieBO.getMovieList();
 		// List<Movie> movieList = movieBO.getPostListByUserId(userId,prevIdparam,nextIdparam);
 		int prevId = 0;
@@ -50,13 +50,13 @@ public class MovieController {
 			
 			// 이전 방향의 끝인가? 그러면 0
 			// prevId와 테이블의 제일 큰 숫자와 같으면 이전의 끝페이지
-			if (movieBO.isPrevLastPageByUserId(userId,prevId)) {
+			if (movieBO.isPrevLastPage(prevId)) {
 				prevId = 0;
 			}
 			
 			// 다음 방향의 끝인가? 그러면 0
 			// nextId와 테이블의 제일 작은 숫자가 같으면 다음의 끝페이지
-			if (movieBO.isNextLastPageByUserId(userId,nextId)) {
+			if (movieBO.isNextLastPage(nextId)) {
 				nextId = 0;
 			}
 		}

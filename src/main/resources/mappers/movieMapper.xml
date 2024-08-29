@@ -56,13 +56,57 @@
 
 		 `id`,
         `title`,
-        `director,
+        `director`,
         `opendate`,
         `imagepath`,
         `createdAt`,
         `updatedAt`
     FROM
-     movie
-    WHERE `title` LIKE CONCAT('%', #{keyword}, '%')
+     	`movie`
+    WHERE 
+    	`title` LIKE CONCAT('%', #{keyword}, '%')
+    	ORDER BY `title`
+    	LIMIT 1
 </select>
+
+
+
+<select id="selectMovieList" parameterType="map" resultType="com.project.movie.domain.Movie">
+	SELECT
+		 `id`,
+        `title`,
+        `director`,
+        `opendate`,
+        `imagepath`,
+        `createdAt`,
+        `updatedAt`
+	FROM
+			`movie`
+		WHERE
+			`id` = #{id}
+			<if test="direction == 'next'">
+			<![CDATA[
+			AND `id` < #{standardId}
+			]]>
+			ORDER BY `id` DESC
+			</if>
+			<if test="direction == 'prev'">
+			<![CDATA[
+			AND `id` > #{standardId}
+			]]>
+			</if>
+			<if test="direction == null">
+			ORDER BY `id` DESC
+			</if>
+		LIMIT ${limit}
+	</select>
+	
+		<select id="selectMovieIdByAsSort" parameterType="string" resultType="int">
+		SELECT
+			`id`
+		FROM
+			`movie`
+		 ORDER BY id ${sort}
+    	LIMIT 1
+	</select>
 </mapper>
