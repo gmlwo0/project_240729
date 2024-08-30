@@ -1,20 +1,18 @@
 package com.project.post.bo;
 
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.project.comment.bo.CommentBO;
 import com.project.comment.domain.Comment;
-import com.project.comment.domain.CommentView;
 import com.project.post.domain.Post;
 import com.project.post.mapper.PostMapper;
 import com.project.user.bo.UserBO;
-import com.project.user.entity.UserEntity;
 
 import lombok.extern.slf4j.Slf4j;
 

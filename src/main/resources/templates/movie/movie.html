@@ -24,7 +24,7 @@
 			<tbody>
 				<tr>
 					<td th:each="movie : ${movieList}">
-						<a th:href="|/post/post-create-view?movieId=|" + post.movieId;>
+						<a  th:href="|/post/post-create-view?movieId=${movieId}|">
 						<img th:src="${movie.imagepath}"
 						class="img-thumbnail mx-2" style="width: 150px; height: 150px;">
 						</a>

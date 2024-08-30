@@ -28,7 +28,7 @@
 		VALUES
 		(
 			#{userId}
-			,`movieId`
+			,#{movieId}
 			,#{title}
 			, #{content}
 			, #{point}

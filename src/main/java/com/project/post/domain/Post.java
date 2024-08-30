@@ -12,7 +12,7 @@ public class Post {
 	
 	private int id;
 	private int userId;
-	private String movieId;
+	private int movieId;
 	private String title;
 	private String content;
 	private double point;

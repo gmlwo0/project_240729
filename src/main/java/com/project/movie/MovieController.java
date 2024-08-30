@@ -38,7 +38,7 @@ public class MovieController {
 	@GetMapping("/movie-list-view")
 	public String movieListView(
 			@RequestParam(value="prevId",required = false) Integer prevIdparam,
-			@RequestParam(value="nextvId",required = false) Integer nextIdparam,
+			@RequestParam(value="nextId",required = false) Integer nextIdparam,
 			Model model, HttpSession session) { 
 		List<Movie> movieList = movieBO.getMovieList();
 		// List<Movie> movieList = movieBO.getPostListByUserId(userId,prevIdparam,nextIdparam);

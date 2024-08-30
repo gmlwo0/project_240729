@@ -30,7 +30,7 @@ public class PostController {
 	@GetMapping("/post-list-view")
 	public String postListView(
 			@RequestParam(value="prevId",required = false) Integer prevIdparam,
-			@RequestParam(value="nextvId",required = false) Integer nextIdparam,
+			@RequestParam(value="nextId",required = false) Integer nextIdparam,
 	        @RequestParam(value = "searchType", required = false) String searchType,
 	        @RequestParam(value = "searchKeyword", required = false) String searchKeyword,
 			HttpSession session, Model model) {
