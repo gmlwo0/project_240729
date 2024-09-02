@@ -68,6 +68,8 @@ public class PostController {
 		model.addAttribute("nextId", nextId);
 		model.addAttribute("postList", postList);
 		
+		
+		
 		return "post/postList";
 	}
 	
