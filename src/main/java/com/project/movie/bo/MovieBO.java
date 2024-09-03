@@ -17,12 +17,12 @@ public class MovieBO {
 	private MovieMapper movieMapper;
 	
 	// 페이징 정보 필드(limit)
-		private static final int POST_MAX_SIZE = 3;
+		private static final int MOVIE_MAX_SIZE = 3;
 
 
 		// input: 로그인 된 사람의 userId
 		// output: List<Post>
-		public List<Movie> getMovieListBy(int id,Integer prevId, Integer nextId) {
+		public List<Movie> getMovieList(Integer prevId, Integer nextId) {
 			// 게시글 번호 10 9 8 | 7 6 5 | 4 3 2 | 1
 			// 만약 4 3 2 페이지에 있을 때
 			// 1) 다음: 2보다 작은 3개 DESC
@@ -34,7 +34,7 @@ public class MovieBO {
 				standardId = prevId;
 				direction = "prev";
 
-				 List<Movie> movieList = movieMapper.selectMovieList(id,standardId, direction, POST_MAX_SIZE);
+				 List<Movie> movieList = movieMapper.selectMovieList(standardId, direction, MOVIE_MAX_SIZE);
 				// [5,6,7] => [7,6,5]
 				Collections.reverse(movieList); // 뒤집고 저장
 
@@ -44,7 +44,7 @@ public class MovieBO {
 				direction = "next";
 			}
 			// 3) 페이징X, 1) 다음
-			return movieMapper.selectMovieList(id,standardId, direction, POST_MAX_SIZE);
+			return movieMapper.selectMovieList(standardId, direction, MOVIE_MAX_SIZE);
 		}
 
 		// 이전 페이지의 마지막인가?

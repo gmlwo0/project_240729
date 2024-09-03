@@ -83,7 +83,6 @@
 	FROM
 			`movie`
 		WHERE
-			`id` = #{id}
 			<if test="direction == 'next'">
 			<![CDATA[
 			AND `id` < #{standardId}
@@ -101,12 +100,12 @@
 		LIMIT ${limit}
 	</select>
 	
-		<select id="selectMovieIdByAsSort" parameterType="string" resultType="int">
+		<select id="selectMovieIdByAsSort" parameterType="map" resultType="int">
 		SELECT
 			`id`
 		FROM
-			`movie`
-		 ORDER BY id ${sort}
+			`movie`                                                    
+		ORDER BY id ${sort}
     	LIMIT 1
 	</select>
 </mapper>
