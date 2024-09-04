@@ -15,7 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class FileManagerService {
 	
-	public static final String FILE_UPLOAD_PATH = "D:\\태희재\\7_project\\workspace\\images/";
+	//public static final String FILE_UPLOAD_PATH = "D:\\태희재\\7_project\\workspace\\images/";
+	public static final String FILE_UPLOAD_PATH = "/home/ec2-user/images/";
 	
 	public String uploadFile(MultipartFile file, String loginId) {
 		// 폴더(디렉토리) 생성
